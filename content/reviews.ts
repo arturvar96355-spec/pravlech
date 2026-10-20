@@ -1,16 +1,16 @@
 const Q = '[цитата из отзыва на Яндекс Картах — подобрать]';
 
-export type ReviewSlot = { id: string; text: string; author: string; about?: string };
+export type ReviewSlot = { id: string; text: string; author: string; about?: string; doctorSlug?: string };
 
 export const reviewAuthor = 'Отзыв на Яндекс Картах';
 
 /** По одному слоту на каждого из пяти названных специалистов + три общих. */
 export const reviews: ReviewSlot[] = [
-  { id: 'r-vardanyan', text: Q, author: reviewAuthor, about: 'о враче: А. Г. Варданян, кардиолог' },
-  { id: 'r-ermoshkina', text: Q, author: reviewAuthor, about: 'о враче: Н. Ю. Ермошкина, невролог' },
-  { id: 'r-salkaev', text: Q, author: reviewAuthor, about: 'о враче: М. Р. Салькаев, ЛОР' },
-  { id: 'r-vitushkina', text: Q, author: reviewAuthor, about: 'о враче: Ю. Витушкина, ЛОР' },
-  { id: 'r-goar', text: Q, author: reviewAuthor, about: 'о Гоар, процедурный кабинет' },
+  { id: 'r-vardanyan', doctorSlug: 'vardanyan-a-g', text: Q, author: reviewAuthor, about: 'о враче: А. Г. Варданян, кардиолог' },
+  { id: 'r-ermoshkina', doctorSlug: 'ermoshkina-n-yu', text: Q, author: reviewAuthor, about: 'о враче: Н. Ю. Ермошкина, невролог' },
+  { id: 'r-salkaev', doctorSlug: 'salkaev-m-r', text: Q, author: reviewAuthor, about: 'о враче: М. Р. Салькаев, ЛОР' },
+  { id: 'r-vitushkina', doctorSlug: 'vitushkina-yu', text: Q, author: reviewAuthor, about: 'о враче: Ю. Витушкина, ЛОР' },
+  { id: 'r-goar', doctorSlug: 'goar', text: Q, author: reviewAuthor, about: 'о Гоар, процедурный кабинет' },
   { id: 'r-general-1', text: Q, author: reviewAuthor },
   { id: 'r-general-2', text: Q, author: reviewAuthor },
   { id: 'r-general-3', text: Q, author: reviewAuthor },
