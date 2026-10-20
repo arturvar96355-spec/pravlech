@@ -1,12 +1,15 @@
 'use client';
 
-import { Search } from 'lucide-react';
+import { ChevronDown, Search } from 'lucide-react';
 import { Fragment, useMemo, useState } from 'react';
 import { priceGroups } from '@/content/prices';
 import { highlight, matchesQuery } from '@/lib/normalize';
 import { priceLabel } from '@/lib/price';
 import { typograph } from '@/lib/typograph';
+import { cn } from '@/lib/utils';
 import { T } from '../ui/Text';
+
+const COLLAPSED = 5;
 
 function Marked({ text, query }: { text: string; query: string }) {
   return (
@@ -24,6 +27,8 @@ function Marked({ text, query }: { text: string; query: string }) {
 
 export function PriceSearch() {
   const [query, setQuery] = useState('');
+  const [open, setOpen] = useState<Record<string, boolean>>({});
+  const searching = query.trim().length > 0;
   const groups = useMemo(() => {
     return priceGroups
       .map((g) => ({
@@ -53,7 +58,7 @@ export function PriceSearch() {
             <h3 id={`pg-${g.id}`} className="mb-3 text-xl">{g.title}</h3>
             {g.source && <p className="-mt-1 mb-3 text-[0.9rem] text-mute">{g.source}</p>}
             <ul className="divide-y divide-line overflow-hidden rounded-[var(--radius-card)] bg-white shadow-soft">
-              {g.items.map((i) => (
+              {(searching || open[g.id] ? g.items : g.items.slice(0, COLLAPSED)).map((i) => (
                 <li key={i.id} className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 px-5 py-4">
                   <span>
                     <Marked text={i.title} query={query} />
@@ -65,6 +70,16 @@ export function PriceSearch() {
                 </li>
               ))}
             </ul>
+            {!searching && g.items.length > COLLAPSED && (
+              <button
+                onClick={() => setOpen((o) => ({ ...o, [g.id]: !o[g.id] }))}
+                aria-expanded={!!open[g.id]}
+                className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-full px-4 font-medium text-sage hover:bg-mint"
+              >
+                {open[g.id] ? 'Свернуть' : `Показать все (${g.items.length})`}
+                <ChevronDown size={18} className={cn('transition-transform', open[g.id] && 'rotate-180')} />
+              </button>
+            )}
           </section>
         ))}
         {!groups.length && (

@@ -25,7 +25,7 @@ export function PricesSection() {
             </Reveal>
           ))}
         </ul>
-        <Reveal><PriceSearch /></Reveal>
+        <PriceSearch />
       </div>
     </section>
   );
