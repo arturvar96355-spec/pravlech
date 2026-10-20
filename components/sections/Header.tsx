@@ -8,6 +8,7 @@ import { nav, site } from '@/content/site';
 import { Logo } from '../ui/Logo';
 import { Button } from '../ui/Button';
 import { Magnetic } from '../motion/Magnetic';
+import { A11yPanel } from '../widgets/A11yPanel';
 import { OpenNow } from '../widgets/OpenNow';
 import { useBooking } from '../widgets/BookingProvider';
 
@@ -20,7 +21,7 @@ export function Header() {
       <div className="container-x flex h-[72px] items-center justify-between gap-4">
         <div className="min-w-0 sm:shrink-0"><Logo /></div>
 
-        <nav aria-label="Основное меню" className="hidden items-center gap-6 lg:flex">
+        <nav aria-label="Основное меню" className="hidden items-center gap-6 xl:flex">
           {nav.map((n) => (
             <Link key={n.href} href={n.href} className="link-u whitespace-nowrap py-2 text-[1.02rem] font-medium">
               {n.label}
@@ -29,14 +30,15 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-4">
-          <div className="hidden flex-col items-end leading-tight xl:flex">
+          <div className="hidden flex-col items-end leading-tight min-[1536px]:flex">
             {site.phones.map((p) => (
               <a key={p.href} href={p.href} className="link-u whitespace-nowrap font-heading text-[0.98rem] font-medium">
                 {p.display}
               </a>
             ))}
           </div>
-          <span className="hidden xl:block"><OpenNow className="text-sage-dark" /></span>
+          <span className="hdr-open hidden min-[1800px]:block"><OpenNow className="text-sage-dark" /></span>
+          <A11yPanel />
           <Magnetic className="hidden sm:block">
             <Button onClick={() => openBooking()}>Записаться</Button>
           </Magnetic>
@@ -48,7 +50,7 @@ export function Header() {
             aria-label={menu ? 'Закрыть меню' : 'Открыть меню'}
             aria-expanded={menu}
             aria-controls="mobile-menu"
-            className="grid h-12 w-12 place-items-center rounded-full hover:bg-mint lg:hidden"
+            className="grid h-12 w-12 place-items-center rounded-full hover:bg-mint xl:hidden"
           >
             {menu ? <X /> : <Menu />}
           </button>
@@ -64,7 +66,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.25 }}
-            className="border-t border-line bg-cream lg:hidden"
+            className="border-t border-line bg-cream xl:hidden"
           >
             <ul className="container-x py-3">
               {nav.map((n) => (

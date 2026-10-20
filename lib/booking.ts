@@ -29,6 +29,8 @@ export type BookingRequest = {
   comment?: string;
   /** Состав чек-апа, если запись идёт из конструктора */
   checkup?: string[];
+  /** Ещё люди в этой же заявке (например, мама и ребёнок) */
+  others?: Array<{ forWhom: ForWhomId; name: string }>;
 };
 
 /** Текст заявки для мессенджера. */
@@ -38,6 +40,10 @@ export function buildBookingMessage(r: BookingRequest): string {
   const whom = forWhomOptions.find((o) => o.id === r.forWhom)?.label ?? '';
   lines.push(`Запись: ${whom.toLowerCase()}.`);
   if (r.checkup?.length) lines.push(`Чек-ап: ${r.checkup.join(', ')}.`);
+  const others = (r.others ?? []).filter((o) => o.name.trim());
+  if (others.length) {
+    lines.push(`Записать вместе: ${others.map((o) => `${o.name.trim()} (${(forWhomOptions.find((f) => f.id === o.forWhom)?.label ?? '').toLowerCase()})`).join(', ')}.`);
+  }
   lines.push(`Имя: ${r.name}.`, `Телефон: ${r.phone}.`);
   if (r.comment?.trim()) lines.push(`Комментарий: ${r.comment.trim()}`);
   lines.push('Время ориентировочное, прошу подтвердить.');

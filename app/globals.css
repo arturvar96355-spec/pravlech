@@ -41,9 +41,30 @@
   .lenis.lenis-stopped {
     overflow: hidden;
   }
+  html[data-fs='1'] {
+    font-size: 112.5%;
+  }
+  html[data-fs='2'] {
+    font-size: 125%;
+  }
+  /* Высокий контраст: темнее текст и границы, чище фон */
+  html[data-contrast='high'] {
+    --color-cream: #ffffff;
+    --color-mint-soft: #f1f6f3;
+    --color-mute: #2b3532;
+    --color-line: #8a948f;
+    --color-sage: #1b5444;
+    --color-sage-dark: #123d31;
+    --color-ink: #000000;
+    --color-peach-deep: #6e3210;
+  }
+  html[data-contrast='high'] .ph {
+    color: #000;
+    border-color: #000;
+  }
   body {
     font-family: var(--font-body);
-    font-size: 17px;
+    font-size: 1.0625rem;
     line-height: 1.6;
     color: var(--color-ink);
     background: var(--color-cream);
@@ -52,7 +73,7 @@
   }
   @media (min-width: 768px) {
     body {
-      font-size: 18px;
+      font-size: 1.125rem;
     }
   }
   h1,
@@ -202,4 +223,28 @@
   .line-up {
     animation: none !important;
   }
+}
+
+/* Печать прайса: только таблица, без интерфейса */
+@media print {
+  header,
+  footer,
+  nav,
+  .print\:hidden,
+  [aria-label='Настройки для слабовидящих'],
+  .fixed {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    font-size: 12pt;
+  }
+  .print-area li {
+    break-inside: avoid;
+  }
+}
+
+/* При увеличенном шрифте убираем из шапки необязательное, чтобы не было горизонтального скролла */
+html:not([data-fs='0']) .hdr-open {
+  display: none !important;
 }

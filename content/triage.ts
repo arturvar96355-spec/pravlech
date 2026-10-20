@@ -18,5 +18,16 @@ export const triage: TriageOption[] = [
   { id: 'unknown', chip: 'Не знаю, к кому идти', serviceId: 'therapist', hint: 'Начните с терапевта. Он выслушает и подскажет, к какому специалисту идти дальше.' },
 ];
 
+export const forWhomTriage = [
+  { id: 'self', label: 'Себе' },
+  { id: 'child', label: 'Ребёнку' },
+  { id: 'parent', label: 'Маме или папе' },
+] as const;
+
+export type TriageWhom = (typeof forWhomTriage)[number]['id'];
+
+export const childNote = 'Приём детей по этому направлению уточните по телефону. [уточнить у клиники]';
+export const parentNote = 'Можно записать родителя: в заявке укажите, что запись для него.';
+
 export const triageDisclaimer =
   'Это подсказка, а не диагноз. Если сомневаетесь — позвоните, администратор подскажет.';

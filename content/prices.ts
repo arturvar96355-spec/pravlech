@@ -293,3 +293,7 @@ export const allPriceItems: Array<PriceItem & { group: string }> = priceGroups.f
 export function topItems() {
   return topPriceIds.map((id) => allPriceItems.find((i) => i.id === id)!);
 }
+
+export function getPriceGroup(id: string) {
+  return priceGroups.find((g) => g.id === id);
+}

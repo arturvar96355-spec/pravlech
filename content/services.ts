@@ -39,3 +39,21 @@ export const services: Service[] = [
 export function getService(id: string): Service | undefined {
   return services.find((s) => s.id === id);
 }
+
+/** Какая группа прайса относится к направлению (id группы из prices.ts). */
+export const priceGroupByService: Record<string, string> = {
+  therapist: 'therapy',
+  cardio: 'cardio',
+  neuro: 'neuro',
+  lor: 'lor',
+  gyn: 'gyn',
+  endo: 'endo',
+  gastro: 'gastro',
+  uro: 'uro',
+  mammo: 'mammo',
+  derm: 'derm',
+  us: 'us',
+  labs: 'labs',
+  massage: 'massage',
+  spravki: 'spravki',
+};

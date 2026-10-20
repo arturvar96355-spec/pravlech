@@ -29,6 +29,7 @@ export function Footer() {
               <Link key={n.href} href={n.href} className="link-u w-fit py-1.5">{n.label}</Link>
             ))}
             <Link href="/privacy/" className="link-u w-fit py-1.5">Политика обработки данных</Link>
+            <Link href="/upgrade/" className="link-u w-fit py-1.5 text-white/70">Что изменится на сайте</Link>
           </nav>
           <div className="flex flex-col gap-1">
             {site.phones.map((p) => (

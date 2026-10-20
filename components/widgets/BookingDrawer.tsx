@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import { Check, ChevronLeft, Copy, MessageCircle, Phone, Search, X } from 'lucide-react';
+import { Check, ChevronLeft, Copy, MessageCircle, Phone, Plus, Search, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useForm, type Resolver } from 'react-hook-form';
@@ -72,6 +72,7 @@ export function BookingDrawer({
   const [time, setTime] = useState<string | null>(null);
   const [done, setDone] = useState<{ text: string; link: string } | null>(null);
   const [copied, setCopied] = useState(false);
+  const [others, setOthers] = useState<Array<{ forWhom: ForWhomId; name: string }>>([]);
   const panelRef = useRef<HTMLDivElement>(null);
   const day = days.find((d) => d.iso === dayIso);
 
@@ -133,6 +134,7 @@ export function BookingDrawer({
       forWhom: v.forWhom,
       comment: v.comment,
       checkup,
+      others,
     });
     const link = messengerHref(text);
     setDone({ text, link });
@@ -370,6 +372,41 @@ export function BookingDrawer({
                               ))}
                             </div>
                           </fieldset>
+                          <div>
+                            {others.map((o, i) => (
+                              <div key={i} className="mb-3 rounded-[20px] bg-mint-soft p-4">
+                                <div className="flex items-center justify-between gap-2">
+                                  <p className="font-medium">Ещё один человек</p>
+                                  <button type="button" onClick={() => setOthers((l) => l.filter((_, k) => k !== i))} className="min-h-11 rounded-full px-3 text-[0.95rem] text-sage hover:bg-mint">Убрать</button>
+                                </div>
+                                <input
+                                  aria-label="Имя"
+                                  placeholder="Имя"
+                                  value={o.name}
+                                  onChange={(e) => setOthers((l) => l.map((x, k) => (k === i ? { ...x, name: e.target.value } : x)))}
+                                  className={cn(inputCls, 'mt-2')}
+                                />
+                                <div className="mt-2 flex flex-wrap gap-2" role="group" aria-label="Для кого">
+                                  {forWhomOptions.filter((f) => f.id !== 'self').map((f) => (
+                                    <button
+                                      type="button"
+                                      key={f.id}
+                                      aria-pressed={o.forWhom === f.id}
+                                      onClick={() => setOthers((l) => l.map((x, k) => (k === i ? { ...x, forWhom: f.id } : x)))}
+                                      className={cn('min-h-11 rounded-full border-2 px-4 transition-colors', o.forWhom === f.id ? 'border-sage bg-sage text-white' : 'border-line bg-white hover:border-sage')}
+                                    >
+                                      {f.label}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+                            {others.length < 3 && (
+                              <button type="button" onClick={() => setOthers((l) => [...l, { forWhom: 'child', name: '' }])} className="inline-flex min-h-12 items-center gap-2 rounded-full border-2 border-dashed border-sage/50 px-5 font-medium text-sage hover:border-sage hover:bg-mint-soft">
+                                <Plus size={18} aria-hidden /> Записать ещё одного человека
+                              </button>
+                            )}
+                          </div>
                           <Field label="Комментарий (необязательно)">
                             <textarea rows={3} {...register('comment')} className={cn(inputCls, 'h-auto rounded-[20px] py-3')} />
                           </Field>

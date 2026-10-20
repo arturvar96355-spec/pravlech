@@ -1,10 +1,11 @@
 import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
-import { howToGet, site } from '@/content/site';
+import { site } from '@/content/site';
 import { ButtonLink } from '../ui/Button';
 import { MapScheme } from '../ui/MapScheme';
 import { T } from '../ui/Text';
 import { HoursTable } from '../widgets/HoursTable';
 import { OpenNow } from '../widgets/OpenNow';
+import { RouteFinder } from '../widgets/RouteFinder';
 import { Reveal } from '../motion/Reveal';
 
 export function ContactsBlock({ level = 2 }: { level?: 2 | 3 }) {
@@ -47,14 +48,7 @@ export function ContactsBlock({ level = 2 }: { level?: 2 | 3 }) {
           <HoursTable />
         </div>
 
-        <div className="rounded-[var(--radius-card)] bg-white p-6 shadow-soft">
-          <h3 className="mb-3 text-xl">Как добраться</h3>
-          <ul className="space-y-2 text-[1rem]">
-            {howToGet.map((r) => (
-              <li key={r.from}><b className="font-heading font-medium">{r.from}:</b> {r.how}</li>
-            ))}
-          </ul>
-        </div>
+        <RouteFinder />
       </Reveal>
       <Reveal delay={0.1}>
         <MapScheme />

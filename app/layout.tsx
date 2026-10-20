@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Onest, Rubik } from 'next/font/google';
+import { JsonLd } from '@/components/seo/JsonLd';
 import { LenisProvider } from '@/components/motion/LenisProvider';
 import { Footer } from '@/components/sections/Footer';
 import { Header } from '@/components/sections/Header';
@@ -32,14 +33,22 @@ export const viewport: Viewport = { themeColor: '#FBF8F3', width: 'device-width'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru" className={`${rubik.variable} ${onest.variable}`}>
+    <html lang="ru" className={`${rubik.variable} ${onest.variable}`} data-fs="0" data-contrast="normal" suppressHydrationWarning>
       <head>
         <meta name="robots" content="noindex, nofollow" />
+        {/* Применяем сохранённые настройки доступности до первой отрисовки */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var p=JSON.parse(localStorage.getItem('pravlech-a11y')||'{}'),r=document.documentElement;r.dataset.fs=String(p.fs===1||p.fs===2?p.fs:0);r.dataset.contrast=p.hc?'high':'normal'}catch(e){}",
+          }}
+        />
       </head>
       <body>
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-sage focus:px-5 focus:py-3 focus:text-white">
           К содержанию
         </a>
+        <JsonLd />
         <LenisProvider>
           <BookingProvider>
             <Header />

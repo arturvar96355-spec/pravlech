@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { doctors } from '@/content/doctors';
 import { getService } from '@/content/services';
-import { triage, triageDisclaimer } from '@/content/triage';
+import { childNote, forWhomTriage, parentNote, triage, triageDisclaimer, type TriageWhom } from '@/content/triage';
 import { cn } from '@/lib/utils';
 import { Button } from '../ui/Button';
 import { ServiceIcon } from '../ui/Icons';
@@ -14,14 +14,30 @@ import { useBooking } from './BookingProvider';
 
 export function Triage() {
   const [active, setActive] = useState<string | null>(null);
+  const [whom, setWhom] = useState<TriageWhom>('self');
   const { openBooking } = useBooking();
   const option = triage.find((t) => t.id === active);
   const service = option ? getService(option.serviceId) : undefined;
-  const people = service?.specialtyId ? doctors.filter((d) => d.named && d.specialtyId === service.specialtyId) : [];
+  const bySpec = service?.specialtyId ? doctors.filter((d) => d.specialtyId === service.specialtyId) : [];
+  const people = whom === 'child' ? bySpec.filter((d) => d.acceptsChildren) : bySpec;
+  const childUnknown = whom === 'child' && service && people.length === 0 && service.id !== 'therapist';
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:items-start">
       <div>
+        <div role="group" aria-label="Для кого" className="mb-5 flex flex-wrap items-center gap-2">
+          <span className="mr-1 font-medium">Для кого:</span>
+          {forWhomTriage.map((f) => (
+            <button
+              key={f.id}
+              aria-pressed={whom === f.id}
+              onClick={() => setWhom(f.id)}
+              className={cn('min-h-11 rounded-full border-2 px-5 font-medium transition-colors', whom === f.id ? 'border-sage bg-sage text-white' : 'border-line bg-white hover:border-sage')}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
         <div role="group" aria-label="С чем Вы пришли" className="flex flex-wrap gap-3">
           {triage.map((t) => (
             <button
@@ -63,9 +79,11 @@ export function Triage() {
                 {service.priceCaption}:{' '}
                 <span className="text-sage"><T>{service.priceText}</T></span>
               </p>
+              {whom === 'parent' && <p className="mt-3 text-[0.98rem] text-mute">{parentNote}</p>}
+              {childUnknown && <p className="mt-3 text-[0.98rem] text-mute"><T>{childNote}</T></p>}
               {people.length > 0 && (
                 <p className="mt-3 text-[0.98rem] text-mute">
-                  Принимают:{' '}
+                  {whom === 'child' ? 'Принимает детей' : 'Принимают'}:{' '}
                   {people.map((p, i) => (
                     <span key={p.slug}>
                       {i > 0 && ', '}

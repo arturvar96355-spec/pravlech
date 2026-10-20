@@ -14,6 +14,8 @@ export type Doctor = {
   /** Называют в отзывах на Яндекс Картах */
   named: boolean;
   mentions?: string;
+  /** Принимает детей — только если так указано на сайте клиники */
+  acceptsChildren?: boolean;
   initials: string;
   photo?: DoctorPhoto;
   quote: string;
@@ -182,6 +184,7 @@ export const doctors: Doctor[] = [
     specialty: 'Оториноларинголог (ЛОР), детский и взрослый',
     specialtyId: 'lor',
     named: true,
+    acceptsChildren: true,
     initials: 'ЮВ',
     photo: photo('vitushkina-yuliya-valerevna', 247),
     quote: QUOTE,
