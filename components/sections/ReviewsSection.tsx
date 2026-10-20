@@ -34,7 +34,10 @@ export function ReviewsSection() {
             <p className="mt-3 text-lg">
               {site.rating.marks}&nbsp;оценок, {site.rating.reviews}&nbsp;отзывов<br />на Яндекс Картах
             </p>
-            <ButtonLink className="mt-6" variant="secondary" href={site.address.reviewsUrl}>Читать на Яндекс Картах</ButtonLink>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <ButtonLink variant="secondary" href={site.address.reviewsUrl}>Читать на Яндекс Картах</ButtonLink>
+              <ButtonLink variant="secondary" href="/reviews/">Отзывы в цифрах</ButtonLink>
+            </div>
           </div>
 
           <div>

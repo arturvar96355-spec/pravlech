@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 /** Пик каждые `step` пикселей: ровная линия и удар кардиограммы. */
 function path(w: number, h: number, step: number): string {
   const mid = h / 2;
-  const amp = h * 0.46;
+  const amp = h * 0.38;
   let d = `M0 ${mid}`;
   for (let x = step * 0.5; x + 40 < w; x += step) {
     d += ` H${x} L${x + 8} ${mid - amp * 0.4} L${x + 14} ${mid} L${x + 21} ${mid - amp} L${x + 30} ${mid + amp} L${x + 38} ${mid}`;
@@ -35,9 +35,9 @@ export function PagePulse() {
     return () => ro.disconnect();
   }, []);
 
-  const H = 14;
+  const H = 12;
   return (
-    <div ref={ref} aria-hidden className="pointer-events-none absolute inset-x-0 -bottom-[7px] h-[14px] text-sage">
+    <div ref={ref} aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-[12px] overflow-hidden text-sage">
       {w > 0 && (
         <svg width={w} height={H} viewBox={`0 0 ${w} ${H}`} fill="none" className="block">
           <path d={path(w, H, Math.max(220, w / 6))} stroke="currentColor" strokeOpacity={reduce ? 0.18 : 0.12} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />

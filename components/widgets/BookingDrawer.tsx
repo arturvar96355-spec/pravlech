@@ -92,7 +92,9 @@ export function BookingDrawer({
   const forWhom = watch('forWhom');
 
   // Блокировка прокрутки и возврат фокуса
+  // (Drawer остаётся смонтированным после закрытия, поэтому зависим от open)
   useEffect(() => {
+    if (!open) return;
     const prev = document.activeElement as HTMLElement | null;
     window.__lenis?.stop();
     document.body.style.overflow = 'hidden';
@@ -102,7 +104,7 @@ export function BookingDrawer({
       document.body.style.overflow = '';
       prev?.focus?.();
     };
-  }, []);
+  }, [open]);
 
   // Esc и ловушка фокуса
   useEffect(() => {

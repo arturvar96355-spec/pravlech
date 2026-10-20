@@ -30,6 +30,7 @@ export function Footer() {
             {nav.map((n) => (
               <Link key={n.href} href={n.href} className="link-u w-fit py-1.5">{n.label}</Link>
             ))}
+            <Link href="/reviews/" className="link-u w-fit py-1.5">Отзывы в цифрах</Link>
             <Link href="/memo/" className="link-u w-fit py-1.5">Памятка пациента</Link>
             <Link href="/privacy/" className="link-u w-fit py-1.5">Политика обработки данных</Link>
             <Link href="/upgrade/" className="link-u w-fit py-1.5 text-white/70">Что изменится на сайте</Link>

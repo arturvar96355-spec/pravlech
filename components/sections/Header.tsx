@@ -18,7 +18,7 @@ export function Header() {
   const { openBooking } = useBooking();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line/70 bg-cream/95">
+    <header className="sticky top-0 z-50 bg-cream/95">
       <div className="container-x flex h-[72px] items-center justify-between gap-4">
         <div className="min-w-0 sm:shrink-0"><Logo /></div>
 

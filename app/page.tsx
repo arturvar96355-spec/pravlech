@@ -5,7 +5,6 @@ import { Hero } from '@/components/sections/Hero';
 import { PricesSection } from '@/components/sections/PricesSection';
 import { PromosSection } from '@/components/sections/PromosSection';
 import { ProcessScene } from '@/components/sections/ProcessScene';
-import { ReviewStats } from '@/components/sections/ReviewStats';
 import { ReviewsSection } from '@/components/sections/ReviewsSection';
 import { TriageSection } from '@/components/sections/TriageSection';
 import { WhySection } from '@/components/sections/WhySection';
@@ -21,7 +20,6 @@ export default function Home() {
       <PricesSection />
       <PromosSection />
       <WhySection />
-      <ReviewStats />
       <ReviewsSection />
       <ContactsSection />
     </>

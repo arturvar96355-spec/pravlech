@@ -268,16 +268,17 @@ html:not([data-fs='0']) .hdr-open {
 
 /* Маркер на ключевом слове заголовка */
 .marker {
-  background-image: linear-gradient(transparent 62%, var(--color-peach) 62%, var(--color-peach) 92%, transparent 92%);
-  background-repeat: no-repeat;
-  padding-inline: 0.08em;
-  margin-inline: -0.08em;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
+  color: var(--color-sage-dark);
+  text-decoration: underline;
+  text-decoration-color: var(--color-peach);
+  text-decoration-thickness: 0.09em;
+  text-underline-offset: 0.16em;
+  text-decoration-skip-ink: none;
 }
 html[data-contrast='high'] .marker {
-  background-image: none;
+  color: inherit;
   text-decoration: underline;
+  text-decoration-color: currentColor;
   text-decoration-thickness: 0.12em;
   text-underline-offset: 0.12em;
 }
