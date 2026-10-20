@@ -4,8 +4,7 @@ import { AnimatePresence, LayoutGroup, motion } from 'motion/react';
 import { Check, Plus } from 'lucide-react';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import { checkupDisclaimer, checkupItems, checkupPresets, presetNote } from '@/content/checkup';
-import { ph } from '@/content/placeholders';
+import { checkupDisclaimer, checkupItems, checkupPresets, presetNote, type CheckupItem } from '@/content/checkup';
 import { site } from '@/content/site';
 import { formatPrice } from '@/lib/typograph';
 import { cn } from '@/lib/utils';
@@ -15,29 +14,30 @@ import { AnimatedPrice } from './AnimatedPrice';
 import { useBooking } from './BookingProvider';
 
 const SPRING = { type: 'spring', stiffness: 380, damping: 32 } as const;
+const COMPACT_IDS = ['c-therapist', 'c-cardio', 'c-echo', 'c-us'];
 
 export function CheckupBuilder({ compact = false }: { compact?: boolean }) {
   const [selected, setSelected] = useState<string[]>([]);
   const [weekend, setWeekend] = useState(false);
+  const [zones, setZones] = useState<Record<string, string>>({});
   const { openBooking } = useBooking();
+
+  const option = (item: CheckupItem) => item.options?.find((o) => o.id === zones[item.id]) ?? item.options?.[0];
+  const priceOf = (item: CheckupItem): number | null => (item.options ? option(item)!.price : item.price);
 
   const chosen = checkupItems.filter((i) => selected.includes(i.id));
   const calc = useMemo(() => {
-    const known = chosen.filter((i) => i.price != null);
-    const subtotal = known.reduce((s, i) => s + (i.price ?? 0), 0);
+    const subtotal = chosen.reduce((s, i) => s + (priceOf(i) ?? 0), 0);
     const discount = weekend
-      ? Math.round(known.filter((i) => i.weekendDiscount).reduce((s, i) => s + (i.price ?? 0), 0) * (site.weekendDiscount / 100))
+      ? Math.round(chosen.filter((i) => i.weekendDiscount).reduce((s, i) => s + (priceOf(i) ?? 0), 0) * (site.weekendDiscount / 100))
       : 0;
-    const unknown = chosen.filter((i) => i.price == null);
-    const approx = chosen.some((i) => i.approx);
-    const discountPending = weekend && chosen.some((i) => i.weekendDiscount && i.price == null);
-    return { subtotal, discount, total: subtotal - discount, unknown, approx, discountPending };
-  }, [chosen, weekend]);
+    return { subtotal, discount, total: subtotal - discount, approx: chosen.some((i) => i.approx) };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chosen, weekend, zones]);
 
   const toggle = (id: string) => setSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
   const isPreset = (items: string[]) => items.length === selected.length && items.every((i) => selected.includes(i));
-
-  const items = compact ? checkupItems.slice(0, 4) : checkupItems;
+  const items = compact ? checkupItems.filter((i) => COMPACT_IDS.includes(i.id)) : checkupItems;
   const Heading = compact ? 'h3' : 'h2';
 
   return (
@@ -63,7 +63,7 @@ export function CheckupBuilder({ compact = false }: { compact?: boolean }) {
             {items.map((item) => {
               const on = selected.includes(item.id);
               return (
-                <li key={item.id}>
+                <li key={item.id} className="flex flex-col">
                   <motion.button
                     whileTap={{ scale: 0.985 }}
                     role="checkbox"
@@ -82,22 +82,35 @@ export function CheckupBuilder({ compact = false }: { compact?: boolean }) {
                     </span>
                     <span className="mt-1 text-[0.95rem] text-mute"><T>{item.lead}</T></span>
                     <span className="mt-auto pt-3">
-                      {!on && item.price != null && (
+                      {!on && priceOf(item) != null && (
                         <motion.span layoutId={`tag-${item.id}`} transition={SPRING} className="inline-block rounded-full bg-peach px-3 py-1 font-heading text-[0.95rem] font-medium">
-                          {item.approx ? '≈ ' : ''}{formatPrice(item.price)}
+                          {item.approx ? 'от ' : ''}{formatPrice(priceOf(item) ?? 0)}
                         </motion.span>
                       )}
-                      {!on && item.price == null && <span className="text-[0.95rem]"><T>{item.todo ?? ''}</T></span>}
                       {on && <span className="text-[0.95rem] font-medium text-sage">Добавлено</span>}
                     </span>
                   </motion.button>
+                  {item.options && on && (
+                    <label className="mt-2 block">
+                      <span className="sr-only">Зона УЗИ</span>
+                      <select
+                        value={option(item)!.id}
+                        onChange={(e) => setZones((z) => ({ ...z, [item.id]: e.target.value }))}
+                        className="h-12 w-full rounded-full border-2 border-line bg-white px-4 text-base outline-none focus:border-sage"
+                      >
+                        {item.options.map((o) => (
+                          <option key={o.id} value={o.id}>{o.label} — {formatPrice(o.price)}</option>
+                        ))}
+                      </select>
+                    </label>
+                  )}
                 </li>
               );
             })}
           </ul>
           {compact && (
             <p className="mt-5">
-              <Link href="/checkup/" className="link-u font-heading text-lg font-medium text-sage">Все позиции, ЭКГ и анализы →</Link>
+              <Link href="/checkup/" className="link-u font-heading text-lg font-medium text-sage">Все позиции: ЭКГ, холтер, анализы →</Link>
             </p>
           )}
         </div>
@@ -110,13 +123,9 @@ export function CheckupBuilder({ compact = false }: { compact?: boolean }) {
               {chosen.map((i) => (
                 <motion.li key={i.id} layout exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.25 }} className="flex items-center justify-between gap-3 overflow-hidden">
                   <span>{i.title}</span>
-                  {i.price != null ? (
-                    <motion.span layoutId={`tag-${i.id}`} transition={SPRING} className="shrink-0 rounded-full bg-peach px-3 py-1 font-heading text-[0.95rem] font-medium">
-                      {i.approx ? '≈ ' : ''}{formatPrice(i.price)}
-                    </motion.span>
-                  ) : (
-                    <span className="text-[0.9rem]"><T>{i.todo ?? ''}</T></span>
-                  )}
+                  <motion.span layoutId={`tag-${i.id}`} transition={SPRING} className="shrink-0 rounded-full bg-peach px-3 py-1 font-heading text-[0.95rem] font-medium">
+                    {i.approx ? 'от ' : ''}{formatPrice(priceOf(i) ?? 0)}
+                  </motion.span>
                 </motion.li>
               ))}
             </AnimatePresence>
@@ -138,23 +147,25 @@ export function CheckupBuilder({ compact = false }: { compact?: boolean }) {
             {weekend && (
               <div className="flex justify-between text-sage-dark">
                 <dt>Выходная скидка на анализы</dt>
-                <dd>{calc.discountPending ? <T>{ph.discountPending}</T> : `−${formatPrice(calc.discount)}`}</dd>
+                <dd>{calc.discount ? `−${formatPrice(calc.discount)}` : '—'}</dd>
               </div>
             )}
             <div className="flex items-baseline justify-between pt-1">
-              <dt className="font-heading text-lg">Итого{calc.approx ? ' ≈' : ''}</dt>
+              <dt className="font-heading text-lg">Итого{calc.approx ? ' от' : ''}</dt>
               <dd className="font-heading text-3xl text-sage"><AnimatedPrice value={calc.total} /></dd>
             </div>
           </dl>
-          {calc.unknown.length > 0 && (
-            <p className="mt-2 text-[0.9rem] text-mute">В сумму не вошли позиции с ценой по прайсу: {calc.unknown.map((u) => u.title).join(', ')}.</p>
-          )}
 
           <Button
             size="lg"
             className="mt-5 w-full"
             disabled={!chosen.length}
-            onClick={() => openBooking({ service: 'checkup', checkup: chosen.map((c) => c.title) })}
+            onClick={() =>
+              openBooking({
+                service: 'checkup',
+                checkup: chosen.map((c) => (c.options ? `${c.title}: ${option(c)!.label}` : c.title)),
+              })
+            }
           >
             Записаться на чек-ап
           </Button>
@@ -164,4 +175,3 @@ export function CheckupBuilder({ compact = false }: { compact?: boolean }) {
     </LayoutGroup>
   );
 }
-

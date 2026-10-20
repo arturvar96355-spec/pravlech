@@ -14,10 +14,7 @@ import { useBooking } from './BookingProvider';
 export function DoctorCard({ doctor, index = 0 }: { doctor: Doctor; index?: number }) {
   const { openBooking } = useBooking();
   const service = getService(doctor.serviceId);
-  const priceLine =
-    doctor.specialtyId === 'procedure'
-      ? `Забор крови: ${service?.priceText ?? ''}`
-      : `Приём: ${service?.priceText ?? ''}`;
+  const priceLine = `${service?.priceCaption ?? 'Цена'}: ${service?.priceText ?? ''}`;
 
   return (
     <article className="group relative flex h-full flex-col rounded-[var(--radius-card)] bg-white p-6 shadow-soft transition-[transform,box-shadow] duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-1 hover:shadow-lift focus-within:-translate-y-1 focus-within:shadow-lift">
@@ -49,7 +46,7 @@ export function DoctorCard({ doctor, index = 0 }: { doctor: Doctor; index?: numb
       </div>
 
       <div className="relative z-10 mt-4 [@media(hover:hover)]:translate-y-1 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:transition-[opacity,transform] [@media(hover:hover)]:duration-300 [@media(hover:hover)]:group-hover:translate-y-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-focus-within:translate-y-0 [@media(hover:hover)]:group-focus-within:opacity-100">
-        <Button className="w-full" disabled={!doctor.named} onClick={() => openBooking({ doctor: doctor.slug })}>
+        <Button className="w-full" onClick={() => openBooking({ doctor: doctor.slug })}>
           Записаться
         </Button>
       </div>

@@ -60,7 +60,7 @@ export function Triage() {
               </div>
               <p className="mt-4"><T>{option.hint}</T></p>
               <p className="mt-3 font-heading text-lg">
-                {service.id === 'us' ? 'Цена: ' : 'Приём: '}
+                {service.priceCaption}:{' '}
                 <span className="text-sage"><T>{service.priceText}</T></span>
               </p>
               {people.length > 0 && (

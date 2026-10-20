@@ -3,23 +3,40 @@ export function normalize(value: string): string {
   return value.toLowerCase().replace(/ё/g, 'е').replace(/ /g, ' ').replace(/\s+/g, ' ').trim();
 }
 
-/** Разбивает text на куски так, чтобы совпадения с query были подсвечены (ё/е нечувствительно). */
+/** Слова запроса. Окончания отсекаем: «кардиолога» находит «кардиологию». */
+export function queryStems(query: string): string[] {
+  return normalize(query)
+    .split(' ')
+    .filter(Boolean)
+    .map((t) => (t.length > 5 ? t.slice(0, -2) : t));
+}
+
+/** Все слова запроса есть в тексте. */
+export function matchesQuery(haystack: string, query: string): boolean {
+  const h = normalize(haystack);
+  return queryStems(query).every((s) => h.includes(s));
+}
+
+/** Разбивает text на куски и отмечает совпадения со словами запроса (ё/е нечувствительно). */
 export function highlight(text: string, query: string): Array<{ text: string; match: boolean }> {
-  const q = normalize(query);
-  if (!q) return [{ text, match: false }];
-  // normalize сохраняет длину строки, пока нет сжатия пробелов, — сравниваем посимвольно
+  const stems = queryStems(query);
+  if (!stems.length) return [{ text, match: false }];
   const flat = text.toLowerCase().replace(/ё/g, 'е').replace(/ /g, ' ');
-  const out: Array<{ text: string; match: boolean }> = [];
-  let i = 0;
-  while (i < text.length) {
-    const at = flat.indexOf(q, i);
-    if (at === -1) {
-      out.push({ text: text.slice(i), match: false });
-      break;
+  const mark = new Array<boolean>(text.length).fill(false);
+  for (const s of stems) {
+    let at = flat.indexOf(s);
+    while (at !== -1) {
+      for (let i = at; i < at + s.length; i++) mark[i] = true;
+      at = flat.indexOf(s, at + s.length);
     }
-    if (at > i) out.push({ text: text.slice(i, at), match: false });
-    out.push({ text: text.slice(at, at + q.length), match: true });
-    i = at + q.length;
+  }
+  const out: Array<{ text: string; match: boolean }> = [];
+  let start = 0;
+  for (let i = 1; i <= text.length; i++) {
+    if (i === text.length || mark[i] !== mark[start]) {
+      out.push({ text: text.slice(start, i), match: mark[start] });
+      start = i;
+    }
   }
   return out;
 }

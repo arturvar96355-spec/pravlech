@@ -44,10 +44,9 @@ export function buildBookingMessage(r: BookingRequest): string {
   return lines.join('\n');
 }
 
-export function whatsappHref(text: string): string | null {
-  const num = site.whatsapp.replace(/\D/g, '');
-  if (!num) return null;
-  return `https://wa.me/${num}?text=${encodeURIComponent(text)}`;
+/** Ссылка на чат клиники в Telegram с готовым текстом заявки. */
+export function messengerHref(text: string): string {
+  return `${site.messenger.chatUrl}?text=${encodeURIComponent(text)}`;
 }
 
 /** Маска +7 (XXX) XXX-XX-XX по вводимым цифрам. */

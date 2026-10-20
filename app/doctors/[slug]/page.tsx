@@ -53,7 +53,8 @@ export default async function DoctorPage({ params }: { params: Promise<{ slug: s
               <dl className="grid gap-4 sm:grid-cols-2">
                 <div><dt className="text-[0.9rem] text-mute">Стаж</dt><dd><T>{d.experience}</T></dd></div>
                 <div><dt className="text-[0.9rem] text-mute">Образование</dt><dd><T>{d.education}</T></dd></div>
-                <div><dt className="text-[0.9rem] text-mute">{d.specialtyId === 'procedure' ? 'Забор крови' : 'Приём'}</dt><dd className="font-heading text-2xl text-sage"><T>{service?.priceText ?? ''}</T></dd></div>
+                {d.role && <div className="sm:col-span-2"><dt className="text-[0.9rem] text-mute">Должность и степень</dt><dd><T>{d.role}</T></dd></div>}
+                <div><dt className="text-[0.9rem] text-mute">{service?.priceCaption ?? 'Цена'}</dt><dd className="font-heading text-2xl text-sage"><T>{service?.priceText ?? ''}</T></dd></div>
               </dl>
               <div className="mt-6">
                 <DoctorBookButton slug={d.slug} disabled={!d.named} />

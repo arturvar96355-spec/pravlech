@@ -19,7 +19,7 @@ export function Footer() {
           <div>
             <Logo inverted />
             <p className="mt-4 max-w-sm text-white/85">
-              {site.address.street}
+              {site.address.zip}, {site.address.street}
               <br />
               {site.address.district}
             </p>
@@ -34,12 +34,15 @@ export function Footer() {
             {site.phones.map((p) => (
               <a key={p.href} href={p.href} className="link-u w-fit py-1.5 font-heading text-lg font-medium">{p.display}</a>
             ))}
+            <a href={`mailto:${site.email}`} className="link-u w-fit py-1.5">{site.email}</a>
+            <a href={site.messenger.chatUrl} target="_blank" rel="noopener noreferrer" className="link-u w-fit py-1.5">Telegram</a>
+            <a href={site.social.vk} target="_blank" rel="noopener noreferrer" className="link-u w-fit py-1.5">ВКонтакте</a>
           </div>
         </div>
 
         <div className="mt-10 space-y-2 border-t border-white/20 pt-6 text-[0.95rem] text-white/85">
           <p><T onDark>{`Лицензия на медицинскую деятельность: ${site.license}`}</T></p>
-          <p><T onDark>{site.legalEntity}</T></p>
+          <p>{site.legalEntity}</p>
           <p><T onDark>{site.logoNote}</T></p>
           <p className="pt-3 text-sm text-white/70">{site.conceptNote}</p>
         </div>

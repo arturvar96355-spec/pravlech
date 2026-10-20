@@ -3,6 +3,7 @@ import { ContactsSection } from '@/components/sections/ContactsSection';
 import { DoctorsSection } from '@/components/sections/DoctorsSection';
 import { Hero } from '@/components/sections/Hero';
 import { PricesSection } from '@/components/sections/PricesSection';
+import { PromosSection } from '@/components/sections/PromosSection';
 import { ProcessScene } from '@/components/sections/ProcessScene';
 import { ReviewsSection } from '@/components/sections/ReviewsSection';
 import { TriageSection } from '@/components/sections/TriageSection';
@@ -17,6 +18,7 @@ export default function Home() {
       <ProcessScene />
       <CheckupSection />
       <PricesSection />
+      <PromosSection />
       <WhySection />
       <ReviewsSection />
       <ContactsSection />

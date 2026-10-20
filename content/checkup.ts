@@ -1,3 +1,5 @@
+export type CheckupOption = { id: string; label: string; price: number };
+
 export type CheckupItem = {
   id: string;
   title: string;
@@ -8,27 +10,35 @@ export type CheckupItem = {
   todo?: string;
   /** на позицию действует выходная скидка */
   weekendDiscount?: boolean;
-  zones?: boolean;
+  /** выбор зоны/вида: цена берётся из выбранного варианта */
+  options?: CheckupOption[];
 };
 
-export const checkupItems: CheckupItem[] = [
-  { id: 'c-therapist', title: 'Приём терапевта', lead: 'Первичный осмотр и план обследования', price: 3500 },
-  { id: 'c-cardio', title: 'Приём кардиолога', lead: 'Давление, сердце', price: 4500 },
-  { id: 'c-echo', title: 'ЭхоКГ', lead: 'УЗИ сердца', price: 4000 },
-  { id: 'c-us', title: 'УЗИ', lead: 'Выберите зону — цена 2 000–3 000 ₽', price: 2500, approx: true, zones: true },
-  { id: 'c-ecg', title: 'ЭКГ', lead: 'Запись работы сердца', price: null, todo: '[цена — уточнить]' },
-  { id: 'c-labs', title: 'Анализы', lead: 'Состав подберёт врач', price: null, todo: '[позиции и цены — от клиента]', weekendDiscount: true },
+export const usZones: CheckupOption[] = [
+  { id: 'thyroid', label: 'Щитовидная железа с лимфоузлами', price: 3000 },
+  { id: 'abdomen', label: 'Органы брюшной полости, комплексно', price: 3800 },
+  { id: 'pelvis', label: 'Малый таз (трансабдоминально)', price: 2700 },
+  { id: 'breast', label: 'Молочные железы с лимфоузлами', price: 3000 },
+  { id: 'kidneys', label: 'Почки, надпочечники', price: 2800 },
+  { id: 'neck', label: 'Брахиоцефальные артерии (БЦА)', price: 4100 },
 ];
 
-export const usZones = ['[зона — уточнить]', '[зона — уточнить]', '[зона — уточнить]'] as const;
-export const usRange: [number, number] = [2000, 3000];
+export const checkupItems: CheckupItem[] = [
+  { id: 'c-therapist', title: 'Приём терапевта', lead: 'Первичный осмотр и план обследования', price: 3000 },
+  { id: 'c-cardio', title: 'Приём кардиолога', lead: 'Давление, сердце', price: 3500 },
+  { id: 'c-ecg', title: 'ЭКГ', lead: 'Запись работы сердца. Расшифровка — 900 ₽', price: 900 },
+  { id: 'c-echo', title: 'ЭхоКГ', lead: 'УЗИ сердца', price: 4000 },
+  { id: 'c-holter', title: 'Холтер', lead: 'Мониторирование до 24 часов', price: 5600 },
+  { id: 'c-us', title: 'УЗИ', lead: 'Выберите зону', price: usZones[0].price, options: usZones },
+  { id: 'c-labs', title: 'Анализ крови', lead: 'Цена от 2 850 ₽, состав подберёт врач', price: 2850, approx: true, weekendDiscount: true },
+];
 
 export type CheckupPreset = { id: string; label: string; items: string[] };
 
 export const checkupPresets: CheckupPreset[] = [
-  { id: 'heart', label: 'Сердце', items: ['c-cardio', 'c-echo', 'c-ecg'] },
-  { id: 'after40', label: 'После 40', items: ['c-therapist', 'c-cardio', 'c-echo', 'c-labs'] },
+  { id: 'heart', label: 'Сердце', items: ['c-cardio', 'c-ecg', 'c-echo'] },
+  { id: 'after40', label: 'После 40', items: ['c-therapist', 'c-cardio', 'c-ecg', 'c-echo', 'c-labs'] },
 ];
 
-export const presetNote = '[состав — согласовать с клиникой]';
+export const presetNote = '[состав наборов — согласовать с клиникой]';
 export const checkupDisclaimer = 'Предварительный расчёт. Окончательный план — после консультации терапевта.';

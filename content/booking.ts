@@ -2,21 +2,21 @@ import type { BookingTarget } from '@/lib/booking';
 import { doctors } from './doctors';
 import { services } from './services';
 
-const doctorPhrase: Record<string, string> = {
-  'vardanyan-a-g': 'к кардиологу Аргишти Гагиковичу Варданяну',
-  'ermoshkina-n-yu': 'к неврологу Н. Ю. Ермошкиной',
-  'salkaev-m-r': 'к оториноларингологу М. Р. Салькаеву',
-  'vitushkina-yu': 'к оториноларингологу Ю. Витушкиной',
-  goar: 'в процедурный кабинет к Гоар',
-};
-
 const servicePhrase: Record<string, string> = {
   therapist: 'к терапевту',
   cardio: 'к кардиологу',
   neuro: 'к неврологу',
   lor: 'к оториноларингологу (ЛОР)',
+  gyn: 'к акушеру-гинекологу',
+  endo: 'к эндокринологу',
+  gastro: 'к гастроэнтерологу',
+  uro: 'к урологу',
+  mammo: 'к маммологу',
+  derm: 'к дерматологу',
   us: 'на УЗИ',
   labs: 'в процедурный кабинет (анализы)',
+  massage: 'на массаж',
+  spravki: 'за медицинской справкой',
 };
 
 export const checkupTarget: BookingTarget = {
@@ -28,15 +28,13 @@ export const checkupTarget: BookingTarget = {
 };
 
 export const bookingTargets: BookingTarget[] = [
-  ...doctors
-    .filter((d) => d.named)
-    .map<BookingTarget>((d) => ({
-      id: `d:${d.slug}`,
-      label: d.name,
-      phrase: doctorPhrase[d.slug],
-      group: 'doctor',
-      sub: d.specialty,
-    })),
+  ...doctors.map<BookingTarget>((d) => ({
+    id: `d:${d.slug}`,
+    label: d.name,
+    phrase: d.bookingPhrase,
+    group: 'doctor',
+    sub: d.specialty,
+  })),
   ...services.map<BookingTarget>((s) => ({
     id: `s:${s.id}`,
     label: s.title,

@@ -1,5 +1,6 @@
 import type { SVGProps } from 'react';
-import { Brain, Ear, HeartPulse, Stethoscope, TestTube } from 'lucide-react';
+import { Activity, Brain, Droplets, Ear, FileText, Flower2, Hand, HeartPulse, Salad, ShieldPlus, Sparkles, Stethoscope, TestTube } from 'lucide-react';
+import type { ServiceIconName } from '@/content/services';
 
 type P = { className?: string; size?: number; strokeWidth?: number };
 
@@ -34,9 +35,17 @@ export const serviceIcons = {
   probe: ProbeIcon,
   tube: TestTube,
   stetho: Stethoscope,
+  flower: Flower2,
+  sparkles: Sparkles,
+  activity: Activity,
+  salad: Salad,
+  drops: Droplets,
+  shield: ShieldPlus,
+  hand: Hand,
+  file: FileText,
 } as const;
 
-export type ServiceIconName = keyof typeof serviceIcons;
+export type { ServiceIconName };
 
 export function ServiceIcon({ name, ...rest }: { name: ServiceIconName } & P) {
   const Icon = serviceIcons[name];

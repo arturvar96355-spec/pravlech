@@ -25,14 +25,14 @@ components/widgets   запись (drawer на 3 шага), «С чем Вы п�
 components/motion    Reveal, SplitLines, CountUp, Magnetic, Cardiogram, LenisProvider
 components/ui        кнопки, бейджи, монограммы, иконки, иллюстрации
 content/             ВЕСЬ текст, цены, телефоны, врачи, отзывы — типизированные данные
-lib/                 typograph(), booking.ts (текст заявки, wa.me), schedule.ts (режим, слоты), normalize.ts (ё/е)
+lib/                 typograph(), booking.ts (текст заявки, ссылка в Telegram), schedule.ts (режим, слоты), normalize.ts (ё/е)
 public/              favicon.svg, og.jpg, robots.txt
 ```
 Все тексты, цены и контакты лежат в `/content`. В компонентах их нет — после сделки этот слой переедет в CMS.
 
 ### Как внести данные клиента
-- Телефоны, адрес, режим, WhatsApp, лицензия, юрлицо — `content/site.ts` (`whatsapp: '79991234567'` включает открытие мессенджера).
-- Врачи — `content/doctors.ts`. Услуги — `content/services.ts`. Прайс — `content/prices.ts`. Чек-ап — `content/checkup.ts`.
+- Телефоны, адрес, режим, Telegram (куда уходят заявки), e-mail, лицензия, реквизиты — `content/site.ts`.
+- Врачи — `content/doctors.ts`. Направления — `content/services.ts`. Прайс (одна таблица на весь сайт) — `content/prices.ts`. Чек-ап — `content/checkup.ts`. Акции — `content/promos.ts`.
 - Подсказки «С чем Вы пришли» — `content/triage.ts`. Отзывы — `content/reviews.ts`.
 - Источники фото — `content/credits.ts`.
 

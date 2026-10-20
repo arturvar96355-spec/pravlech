@@ -13,7 +13,7 @@ import {
   forWhomOptions,
   maskPhone,
   phoneDigits,
-  whatsappHref,
+  messengerHref,
   type BookingTarget,
   type ForWhomId,
 } from '@/lib/booking';
@@ -70,7 +70,7 @@ export function BookingDrawer({
   const days = useMemo(() => buildBookingDays(14), []);
   const [dayIso, setDayIso] = useState<string | null>(() => days.find((d) => d.slots.length)?.iso ?? null);
   const [time, setTime] = useState<string | null>(null);
-  const [done, setDone] = useState<{ text: string; wa: string | null } | null>(null);
+  const [done, setDone] = useState<{ text: string; link: string } | null>(null);
   const [copied, setCopied] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const day = days.find((d) => d.iso === dayIso);
@@ -134,9 +134,11 @@ export function BookingDrawer({
       comment: v.comment,
       checkup,
     });
-    const wa = whatsappHref(text);
-    setDone({ text, wa });
-    if (wa) window.open(wa, '_blank', 'noopener,noreferrer');
+    const link = messengerHref(text);
+    setDone({ text, link });
+    // Текст кладём в буфер: в Telegram по ссылке он подставляется не везде
+    navigator.clipboard?.writeText(text).catch(() => {});
+    window.open(link, '_blank', 'noopener,noreferrer');
   });
 
   const copy = async () => {
@@ -223,17 +225,12 @@ export function BookingDrawer({
                     <p className="mt-2 text-mute">Администратор подтвердит время. Время в заявке — ориентировочное.</p>
                     <pre className="mt-5 whitespace-pre-wrap rounded-[20px] bg-white p-4 font-body text-base leading-relaxed shadow-soft">{done.text}</pre>
                     <div className="mt-5 flex flex-col gap-3">
-                      {done.wa ? (
-                        <ButtonLink href={done.wa} size="lg"><MessageCircle size={20} /> Отправить в WhatsApp</ButtonLink>
-                      ) : (
-                        <p className="rounded-[20px] border-2 border-dashed border-[#a79d8b] bg-white/60 p-3 text-base">
-                          <T>{site.whatsappPlaceholder}</T> — до подключения номера заявку можно скопировать и отправить администратору.
-                        </p>
-                      )}
+                      <ButtonLink href={done.link} size="lg"><MessageCircle size={20} /> Отправить в {site.messenger.name}</ButtonLink>
+                      <p className="text-[0.92rem] text-mute">Если текст не подставился сам, он уже скопирован — вставьте его в чат.</p>
                       <Button variant="secondary" onClick={copy}>
                         <Copy size={18} /> {copied ? 'Скопировано' : 'Скопировать текст'}
                       </Button>
-                      <ButtonLink variant={done.wa ? 'secondary' : 'primary'} size="lg" href={site.phones[0].href}>
+                      <ButtonLink variant="secondary" size="lg" href={site.phones[0].href}>
                         <Phone size={20} /> Или позвоните: {site.phones[0].display}
                       </ButtonLink>
                     </div>

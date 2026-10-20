@@ -3,7 +3,7 @@
 import { Search } from 'lucide-react';
 import { Fragment, useMemo, useState } from 'react';
 import { priceGroups } from '@/content/prices';
-import { highlight, normalize } from '@/lib/normalize';
+import { highlight, matchesQuery } from '@/lib/normalize';
 import { priceLabel } from '@/lib/price';
 import { typograph } from '@/lib/typograph';
 import { T } from '../ui/Text';
@@ -25,11 +25,10 @@ function Marked({ text, query }: { text: string; query: string }) {
 export function PriceSearch() {
   const [query, setQuery] = useState('');
   const groups = useMemo(() => {
-    const q = normalize(query);
     return priceGroups
       .map((g) => ({
         ...g,
-        items: g.items.filter((i) => !q || normalize(`${i.title} ${g.title} ${i.note ?? ''}`).includes(q)),
+        items: g.items.filter((i) => !query.trim() || matchesQuery(`${i.title} ${g.title} ${i.note ?? ''}`, query)),
       }))
       .filter((g) => g.items.length);
   }, [query]);
@@ -52,6 +51,7 @@ export function PriceSearch() {
         {groups.map((g) => (
           <section key={g.id} aria-labelledby={`pg-${g.id}`}>
             <h3 id={`pg-${g.id}`} className="mb-3 text-xl">{g.title}</h3>
+            {g.source && <p className="-mt-1 mb-3 text-[0.9rem] text-mute">{g.source}</p>}
             <ul className="divide-y divide-line overflow-hidden rounded-[var(--radius-card)] bg-white shadow-soft">
               {g.items.map((i) => (
                 <li key={i.id} className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 px-5 py-4">

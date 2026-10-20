@@ -1,84 +1,95 @@
-export type SpecialtyId = 'cardio' | 'neuro' | 'lor' | 'procedure' | 'other';
+export type SpecialtyId = 'cardio' | 'neuro' | 'lor' | 'gyn' | 'endo' | 'us' | 'derm' | 'procedure';
 
 export type Doctor = {
   slug: string;
   name: string;
   specialty: string;
+  /** Должность и степень, если есть */
+  role?: string;
   specialtyId: SpecialtyId;
-  /** true — имя реального специалиста из карточки Яндекс Карт */
+  /** Называют в отзывах на Яндекс Картах */
   named: boolean;
-  /** Сколько раз называют в отзывах, если известно */
   mentions?: string;
   initials: string;
   quote: string;
-  photo?: string;
   experience: string;
   education: string;
-  /** id услуги для записи и цены (см. services.ts) */
+  /** id направления для цены и записи (см. services.ts) */
   serviceId: string;
+  /** «к кардиологу …» — для текста заявки */
+  bookingPhrase: string;
 };
 
 const QUOTE = '[цитата из отзыва на Яндекс Картах — подобрать]';
-const EXP = '[стаж — уточнить]';
-const EDU = '[образование, категории — уточнить]';
+const EDU = '[образование, сертификаты — уточнить]';
 
 export const specialties: Array<{ id: SpecialtyId | 'all'; label: string }> = [
   { id: 'all', label: 'Все' },
   { id: 'cardio', label: 'Кардиолог' },
   { id: 'neuro', label: 'Невролог' },
   { id: 'lor', label: 'ЛОР' },
+  { id: 'gyn', label: 'Гинеколог' },
+  { id: 'endo', label: 'Эндокринолог' },
+  { id: 'us', label: 'УЗИ' },
+  { id: 'derm', label: 'Дерматолог' },
   { id: 'procedure', label: 'Процедурный кабинет' },
 ];
 
 export const doctors: Doctor[] = [
   {
-    slug: 'vardanyan-a-g',
+    slug: 'vardanyan-argishti-gagikovich',
     name: 'Аргишти Гагикович Варданян',
-    specialty: 'Кардиолог',
+    specialty: 'Кардиолог, терапевт',
+    role: 'Главный врач, к.м.н., сотрудник кафедры клинической фармакологии РНИМУ им. Пирогова',
     specialtyId: 'cardio',
     named: true,
     mentions: '≈15 упоминаний в отзывах',
     initials: 'АВ',
     quote: QUOTE,
-    experience: EXP,
+    experience: '13 лет',
     education: EDU,
     serviceId: 'cardio',
+    bookingPhrase: 'к кардиологу Аргишти Гагиковичу Варданяну',
   },
   {
-    slug: 'ermoshkina-n-yu',
-    name: 'Н. Ю. Ермошкина',
+    slug: 'ermoshkina-natalya-yurevna',
+    name: 'Наталья Юрьевна Ермошкина',
     specialty: 'Невролог',
+    role: 'К.м.н., доцент кафедры неврологии ФУВ, ФДПО РНИМУ им. Пирогова',
     specialtyId: 'neuro',
     named: true,
     initials: 'НЕ',
     quote: QUOTE,
-    experience: EXP,
+    experience: '40 лет',
     education: EDU,
     serviceId: 'neuro',
+    bookingPhrase: 'к неврологу Наталье Юрьевне Ермошкиной',
   },
   {
-    slug: 'salkaev-m-r',
-    name: 'М. Р. Салькаев',
+    slug: 'salkaev-marat-ravilovich',
+    name: 'Марат Равилович Салькаев',
     specialty: 'Оториноларинголог (ЛОР)',
     specialtyId: 'lor',
     named: true,
     initials: 'МС',
     quote: QUOTE,
-    experience: EXP,
+    experience: '40 лет',
     education: EDU,
     serviceId: 'lor',
+    bookingPhrase: 'к оториноларингологу Марату Равиловичу Салькаеву',
   },
   {
-    slug: 'vitushkina-yu',
-    name: 'Ю. Витушкина',
-    specialty: 'Оториноларинголог (ЛОР)',
+    slug: 'vitushkina-yuliya-valerevna',
+    name: 'Юлия Валерьевна Витушкина',
+    specialty: 'Оториноларинголог (ЛОР), детский и взрослый',
     specialtyId: 'lor',
     named: true,
     initials: 'ЮВ',
     quote: QUOTE,
-    experience: EXP,
+    experience: '37 лет',
     education: EDU,
     serviceId: 'lor',
+    bookingPhrase: 'к оториноларингологу Юлии Валерьевне Витушкиной',
   },
   {
     slug: 'goar',
@@ -88,25 +99,80 @@ export const doctors: Doctor[] = [
     named: true,
     initials: 'Г',
     quote: QUOTE,
-    experience: EXP,
+    experience: '[стаж — уточнить]',
     education: EDU,
     serviceId: 'labs',
+    bookingPhrase: 'в процедурный кабинет к Гоар',
   },
-  ...Array.from({ length: 5 }, (_, i): Doctor => ({
-    slug: `doctor-${i + 5}`,
-    name: '[имя — перенести с сайта]',
-    specialty: '[специализация — перенести с сайта]',
-    specialtyId: 'other',
+  {
+    slug: 'krizmanich-mariya-pavlovna',
+    name: 'Мария Павловна Кризманич',
+    specialty: 'Дерматовенеролог, трихолог',
+    specialtyId: 'derm',
     named: false,
-    initials: '··',
+    initials: 'МК',
     quote: QUOTE,
-    experience: EXP,
+    experience: '14 лет',
     education: EDU,
-    serviceId: 'therapist',
-  })),
+    serviceId: 'derm',
+    bookingPhrase: 'к дерматовенерологу Марии Павловне Кризманич',
+  },
+  {
+    slug: 'sarkisyan-anait-pavlovna',
+    name: 'Анаит Павловна Саркисян',
+    specialty: 'Врач ультразвуковой диагностики',
+    role: 'Высшая категория',
+    specialtyId: 'us',
+    named: false,
+    initials: 'АС',
+    quote: QUOTE,
+    experience: '29 лет',
+    education: EDU,
+    serviceId: 'us',
+    bookingPhrase: 'на УЗИ к Анаит Павловне Саркисян',
+  },
+  {
+    slug: 'yasinskaya-svetlana-borisovna',
+    name: 'Светлана Борисовна Ясинская',
+    specialty: 'Эндокринолог',
+    specialtyId: 'endo',
+    named: false,
+    initials: 'СЯ',
+    quote: QUOTE,
+    experience: '27 лет',
+    education: EDU,
+    serviceId: 'endo',
+    bookingPhrase: 'к эндокринологу Светлане Борисовне Ясинской',
+  },
+  {
+    slug: 'salaeva-gyunay-damirovna',
+    name: 'Гюнай Дамировна Салаева',
+    specialty: 'Акушер-гинеколог, репродуктолог',
+    specialtyId: 'gyn',
+    named: false,
+    initials: 'ГС',
+    quote: QUOTE,
+    experience: '15 лет',
+    education: EDU,
+    serviceId: 'gyn',
+    bookingPhrase: 'к акушеру-гинекологу Гюнай Дамировне Салаевой',
+  },
+  {
+    slug: 'glazovskaya-olga-vadimovna',
+    name: 'Ольга Вадимовна Глазовская',
+    specialty: 'Акушер-гинеколог, врач УЗД',
+    specialtyId: 'gyn',
+    named: false,
+    initials: 'ОГ',
+    quote: QUOTE,
+    experience: '10 лет',
+    education: EDU,
+    serviceId: 'gyn',
+    bookingPhrase: 'к акушеру-гинекологу Ольге Вадимовне Глазовской',
+  },
 ];
 
-export const featuredHeroDoctors = ['vardanyan-a-g', 'ermoshkina-n-yu', 'salkaev-m-r'] as const;
+export const featuredHeroDoctors = ['vardanyan-argishti-gagikovich', 'ermoshkina-natalya-yurevna', 'salkaev-marat-ravilovich'] as const;
 
 export function getDoctor(slug: string): Doctor | undefined {
   return doctors.find((d) => d.slug === slug);
@@ -114,24 +180,12 @@ export function getDoctor(slug: string): Doctor | undefined {
 
 /** Общий перечень обращений по специальности (не диагнозы). */
 export const scopeBySpecialty: Record<SpecialtyId, string[]> = {
-  cardio: [
-    'Повышенное или нестабильное давление',
-    'Боль или дискомфорт в области сердца',
-    'Одышка, перебои в работе сердца',
-    'Наблюдение после лечения, ЭхоКГ',
-  ],
-  neuro: [
-    'Головная боль, головокружение',
-    'Боль в спине и шее',
-    'Онемение рук и ног',
-    'Нарушения сна, постоянная усталость',
-  ],
-  lor: [
-    'Боль в горле, насморк, заложенность носа',
-    'Боль в ухе, снижение слуха',
-    'Частые простуды',
-    'Осмотр и промывания по назначению врача',
-  ],
-  procedure: ['Забор крови', 'Процедуры по назначению врача'],
-  other: ['[перечень обращений — уточнить]'],
+  cardio: ['Повышенное или нестабильное давление', 'Боль или дискомфорт в области сердца', 'Одышка, перебои в работе сердца', 'ЭКГ, холтер, ЭхоКГ, наблюдение'],
+  neuro: ['Головная боль, головокружение', 'Боль в спине и шее', 'Онемение рук и ног', 'Нарушения сна, постоянная усталость'],
+  lor: ['Боль в горле, насморк, заложенность носа', 'Боль в ухе, снижение слуха', 'Серные пробки, промывание миндалин', 'Приём взрослых и детей'],
+  gyn: ['Плановый осмотр и мазки', 'Планирование беременности', 'Нарушения менструального цикла', 'Консультация репродуктолога'],
+  endo: ['Щитовидная железа', 'Сахар и обмен веществ', 'Консультация по результатам гормональных анализов', 'Лишний вес'],
+  us: ['УЗИ органов брюшной полости и малого таза', 'УЗИ щитовидной и молочных желёз', 'УЗИ сосудов', 'УЗИ почек и суставов'],
+  derm: ['Осмотр родинок и дерматоскопия', 'Удаление родинок и бородавок', 'Чистка лица и пилинги', 'Консультация трихолога'],
+  procedure: ['Забор крови', 'Инъекции по назначению врача', 'Капельницы по назначению врача'],
 };
