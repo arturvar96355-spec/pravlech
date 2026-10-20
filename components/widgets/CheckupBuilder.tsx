@@ -5,6 +5,7 @@ import { Check, Plus } from 'lucide-react';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { checkupDisclaimer, checkupItems, checkupPresets, presetNote } from '@/content/checkup';
+import { ph } from '@/content/placeholders';
 import { site } from '@/content/site';
 import { formatPrice } from '@/lib/typograph';
 import { cn } from '@/lib/utils';
@@ -37,6 +38,7 @@ export function CheckupBuilder({ compact = false }: { compact?: boolean }) {
   const isPreset = (items: string[]) => items.length === selected.length && items.every((i) => selected.includes(i));
 
   const items = compact ? checkupItems.slice(0, 4) : checkupItems;
+  const Heading = compact ? 'h3' : 'h2';
 
   return (
     <LayoutGroup>
@@ -101,7 +103,7 @@ export function CheckupBuilder({ compact = false }: { compact?: boolean }) {
         </div>
 
         <aside aria-label="Ваш чек-ап" className="rounded-[var(--radius-lg)] bg-white p-6 shadow-lift lg:sticky lg:top-28">
-          <h3 className="text-2xl">Ваш чек-ап</h3>
+          <Heading className="text-2xl">Ваш чек-ап</Heading>
 
           <ul className="mt-4 min-h-[72px] space-y-2" aria-live="polite">
             <AnimatePresence initial={false}>
@@ -136,7 +138,7 @@ export function CheckupBuilder({ compact = false }: { compact?: boolean }) {
             {weekend && (
               <div className="flex justify-between text-sage-dark">
                 <dt>Выходная скидка на анализы</dt>
-                <dd>{calc.discountPending ? <T>[сумма — после утверждения прайса]</T> : `−${formatPrice(calc.discount)}`}</dd>
+                <dd>{calc.discountPending ? <T>{ph.discountPending}</T> : `−${formatPrice(calc.discount)}`}</dd>
               </div>
             )}
             <div className="flex items-baseline justify-between pt-1">

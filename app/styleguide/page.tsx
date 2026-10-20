@@ -8,6 +8,7 @@ import { Monogram } from '@/components/ui/Monogram';
 import { PageHead } from '@/components/ui/PageHead';
 import { Stars } from '@/components/ui/Stars';
 import { T } from '@/components/ui/Text';
+import { ph } from '@/content/placeholders';
 
 export const metadata: Metadata = { title: 'Дизайн-система — Правильное лечение' };
 
@@ -73,7 +74,7 @@ export default function Styleguide() {
             <Card>
               <Monogram initials="АВ" />
               <p className="mt-3 font-heading text-lg font-medium">Монограмма вместо фото</p>
-              <p className="text-mute"><T>[фото — от клиента]</T></p>
+              <p className="text-mute"><T>{ph.photo}</T></p>
             </Card>
             <Card>
               <div className="flex gap-3 text-sage">

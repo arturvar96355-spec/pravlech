@@ -7,6 +7,7 @@ import { Monogram } from '@/components/ui/Monogram';
 import { PageHead } from '@/components/ui/PageHead';
 import { Stars } from '@/components/ui/Stars';
 import { T } from '@/components/ui/Text';
+import { ph } from '@/content/placeholders';
 import { doctors, getDoctor, scopeBySpecialty } from '@/content/doctors';
 import { reviews } from '@/content/reviews';
 import { getService } from '@/content/services';
@@ -43,7 +44,7 @@ export default async function DoctorPage({ params }: { params: Promise<{ slug: s
               <Blob variant={(index % 3) as 0 | 1 | 2} className="absolute h-full w-full text-mint" />
               <Monogram initials={d.initials} index={index} size="lg" className="relative" />
             </div>
-            <p className="mt-2 text-center text-mute"><T>[фото — от клиента]</T></p>
+            <p className="mt-2 text-center text-mute"><T>{ph.photo}</T></p>
             {d.mentions && <p className="mt-4 flex items-center justify-center gap-2 text-sage-dark"><Stars size={16} /> {d.mentions}</p>}
           </div>
 
@@ -66,7 +67,7 @@ export default async function DoctorPage({ params }: { params: Promise<{ slug: s
                   <li key={s} className="flex items-start gap-3 rounded-[var(--radius-md)] bg-mint-soft p-4"><Check className="mt-1 shrink-0 text-sage" size={20} aria-hidden /><span><T>{s}</T></span></li>
                 ))}
               </ul>
-              <p className="mt-3 text-[0.92rem] text-mute"><T>[перечень обращений — согласовать с врачом]</T> Это общий перечень по специальности, а не диагноз.</p>
+              <p className="mt-3 text-[0.92rem] text-mute"><T>{ph.scopeNote}</T> Это общий перечень по специальности, а не диагноз.</p>
             </div>
 
             <div>

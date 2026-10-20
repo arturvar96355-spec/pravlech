@@ -1,8 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { loadScrollLibs } from '@/lib/scroll';
 import { useEffect, useRef, useState } from 'react';
 import { processSteps } from '@/content/process';
 import { cn } from '@/lib/utils';
@@ -30,31 +29,41 @@ export function ProcessScene() {
 
   useEffect(() => {
     if (reduce) return;
-    gsap.registerPlugin(ScrollTrigger);
-    const mm = gsap.matchMedia();
-    mm.add('(min-width: 768px)', () => {
-      const scene = sceneRef.current;
-      const path = pathRef.current;
-      if (!scene || !path) return;
-      const len = path.getTotalLength();
-      gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
-      const st = ScrollTrigger.create({
-        trigger: scene,
-        start: 'top top+=72',
-        end: () => `+=${Math.round(window.innerHeight * 2.2)}`,
-        pin: true,
-        pinSpacing: true,
-        scrub: 0.4,
-        anticipatePin: 1,
-        onUpdate: (self) => {
-          gsap.set(path, { strokeDashoffset: len * (1 - Math.min(1, self.progress * 1.05)) });
-          const idx = Math.min(processSteps.length - 1, Math.floor(self.progress * processSteps.length));
-          setActive((a) => (a === idx ? a : idx));
-        },
+    let revert: (() => void) | undefined;
+    let cancelled = false;
+
+    loadScrollLibs().then(({ gsap, ScrollTrigger }) => {
+      if (cancelled) return;
+      const mm = gsap.matchMedia();
+      mm.add('(min-width: 768px)', () => {
+        const scene = sceneRef.current;
+        const path = pathRef.current;
+        if (!scene || !path) return;
+        const len = path.getTotalLength();
+        gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
+        const st = ScrollTrigger.create({
+          trigger: scene,
+          start: 'top top+=72',
+          end: () => `+=${Math.round(window.innerHeight * 2.2)}`,
+          pin: true,
+          pinSpacing: true,
+          scrub: 0.4,
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            gsap.set(path, { strokeDashoffset: len * (1 - Math.min(1, self.progress * 1.05)) });
+            const idx = Math.min(processSteps.length - 1, Math.floor(self.progress * processSteps.length));
+            setActive((a) => (a === idx ? a : idx));
+          },
+        });
+        return () => st.kill();
       });
-      return () => st.kill();
+      revert = () => mm.revert();
     });
-    return () => mm.revert();
+
+    return () => {
+      cancelled = true;
+      revert?.();
+    };
   }, [reduce]);
 
   return (

@@ -162,6 +162,18 @@
   animation: beat 1.4s ease-in-out infinite;
 }
 
+@keyframes line-up {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.line-up {
+  animation: line-up 0.9s var(--ease-out-expo) both;
+}
+
 @keyframes float-y {
   0%,
   100% {
@@ -186,7 +198,8 @@
     scroll-behavior: auto !important;
   }
   .beat-ring,
-  .float-y {
+  .float-y,
+  .line-up {
     animation: none !important;
   }
 }

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { type Doctor } from '@/content/doctors';
+import { ph } from '@/content/placeholders';
 import { getService } from '@/content/services';
 import { Blob } from '../ui/Blob';
 import { Button } from '../ui/Button';
@@ -24,7 +25,7 @@ export function DoctorCard({ doctor, index = 0 }: { doctor: Doctor; index?: numb
         <Blob variant={(index % 3) as 0 | 1 | 2} className="absolute h-full w-auto text-mint-soft" />
         <Monogram initials={doctor.initials} index={index} size="md" className="relative" />
       </div>
-      <p className="mb-1 text-center text-[0.8rem] text-mute"><T>[фото — от клиента]</T></p>
+      <p className="mb-1 text-center text-[0.8rem] text-mute"><T>{ph.photo}</T></p>
 
       <h3 className="mt-2 text-center text-[1.2rem]">
         <Link href={`/doctors/${doctor.slug}/`} className="link-u after:absolute after:inset-0 after:content-['']">

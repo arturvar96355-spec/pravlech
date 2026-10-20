@@ -42,20 +42,13 @@ export function Hero() {
     <section aria-labelledby="hero-title" className="relative overflow-hidden pb-16 pt-10 sm:pt-14 lg:pb-24 lg:pt-20">
       <div className="container-x grid items-start gap-x-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
         <div className="relative z-10 lg:col-start-1 lg:row-start-1">
-          <motion.p initial={reduce ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE }} className="eyebrow mb-5">
-            Медицинский центр · Перово
-          </motion.p>
+          <p className="eyebrow mb-5">Медицинский центр · Перово</p>
           <h1 id="hero-title" className="text-[clamp(2.5rem,7.2vw,4.4rem)] leading-[1.04]">
             <SplitLines lines={['Врачи, которые', 'объясняют']} />
           </h1>
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5, ease: EASE }}
-            className="mt-6 max-w-xl text-[1.15rem] text-mute sm:text-xl"
-          >
+          <p className="mt-6 max-w-xl text-[1.15rem] text-mute sm:text-xl">
             {typograph('Многопрофильный медицинский центр в Перово. Без лишних анализов и очередей')}
-          </motion.p>
+          </p>
 
         </div>
 

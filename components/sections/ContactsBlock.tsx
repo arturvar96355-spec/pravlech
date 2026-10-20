@@ -7,12 +7,12 @@ import { HoursTable } from '../widgets/HoursTable';
 import { OpenNow } from '../widgets/OpenNow';
 import { Reveal } from '../motion/Reveal';
 
-export function ContactsBlock({ withHeading = true }: { withHeading?: boolean }) {
+export function ContactsBlock({ level = 2 }: { level?: 2 | 3 }) {
+  const Sub = level === 2 ? 'h2' : 'h3';
   return (
     <div className="grid gap-8 lg:grid-cols-2">
       <Reveal className="space-y-6">
         <div className="rounded-[var(--radius-card)] bg-white p-6 shadow-soft">
-          {withHeading && <h2 id="contacts-title" className="mb-4 text-2xl">Как нас найти</h2>}
           <p className="flex items-start gap-3 text-lg">
             <MapPin className="mt-1 shrink-0 text-sage" aria-hidden />
             <span>{site.address.street}<br /><span className="text-mute">{site.address.district}</span></span>
@@ -31,7 +31,7 @@ export function ContactsBlock({ withHeading = true }: { withHeading?: boolean })
         </div>
         <div className="rounded-[var(--radius-card)] bg-white p-4 shadow-soft">
           <div className="flex items-center justify-between px-4 py-2">
-            <h3 className="text-xl">Режим работы</h3>
+            <Sub className="text-xl">Режим работы</Sub>
             <OpenNow className="text-sage-dark" />
           </div>
           <HoursTable />
