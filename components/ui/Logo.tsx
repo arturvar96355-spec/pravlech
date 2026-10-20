@@ -27,7 +27,7 @@ export function Logo({ inverted = false }: { inverted?: boolean }) {
       <span className={`grid h-10 w-11 place-items-center rounded-full ${inverted ? 'bg-white/15 text-white' : 'bg-mint text-sage'}`}>
         <CardioMark className="h-5 w-7" />
       </span>
-      <span>{site.name}</span>
+      <span className="leading-[1.1] sm:whitespace-nowrap">{site.name}</span>
     </Link>
   );
 }

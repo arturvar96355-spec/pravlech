@@ -18,11 +18,11 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-line/70 bg-cream/95">
       <div className="container-x flex h-[72px] items-center justify-between gap-4">
-        <Logo />
+        <div className="min-w-0 sm:shrink-0"><Logo /></div>
 
-        <nav aria-label="Основное меню" className="hidden items-center gap-7 lg:flex">
+        <nav aria-label="Основное меню" className="hidden items-center gap-6 lg:flex">
           {nav.map((n) => (
-            <Link key={n.href} href={n.href} className="link-u py-2 text-[1.02rem] font-medium">
+            <Link key={n.href} href={n.href} className="link-u whitespace-nowrap py-2 text-[1.02rem] font-medium">
               {n.label}
             </Link>
           ))}
@@ -31,12 +31,12 @@ export function Header() {
         <div className="flex items-center gap-4">
           <div className="hidden flex-col items-end leading-tight xl:flex">
             {site.phones.map((p) => (
-              <a key={p.href} href={p.href} className="link-u font-heading text-[0.98rem] font-medium">
+              <a key={p.href} href={p.href} className="link-u whitespace-nowrap font-heading text-[0.98rem] font-medium">
                 {p.display}
               </a>
             ))}
           </div>
-          <OpenNow className="hidden text-sage-dark md:inline-flex" />
+          <span className="hidden xl:block"><OpenNow className="text-sage-dark" /></span>
           <Magnetic className="hidden sm:block">
             <Button onClick={() => openBooking()}>Записаться</Button>
           </Magnetic>

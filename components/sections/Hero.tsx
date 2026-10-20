@@ -40,12 +40,12 @@ export function Hero() {
 
   return (
     <section aria-labelledby="hero-title" className="relative overflow-hidden pb-16 pt-10 sm:pt-14 lg:pb-24 lg:pt-20">
-      <div className="container-x grid items-start gap-10 lg:grid-cols-[1.1fr_1fr]">
-        <div className="relative z-10">
+      <div className="container-x grid items-start gap-x-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
+        <div className="relative z-10 lg:col-start-1 lg:row-start-1">
           <motion.p initial={reduce ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE }} className="eyebrow mb-5">
             Медицинский центр · Перово
           </motion.p>
-          <h1 id="hero-title" className="text-[clamp(2.5rem,7.5vw,4.75rem)] leading-[1.04]">
+          <h1 id="hero-title" className="text-[clamp(2.5rem,7.2vw,4.4rem)] leading-[1.04]">
             <SplitLines lines={['Врачи, которые', 'объясняют']} />
           </h1>
           <motion.p
@@ -57,11 +57,15 @@ export function Hero() {
             {typograph('Многопрофильный медицинский центр в Перово. Без лишних анализов и очередей')}
           </motion.p>
 
-          {/* кардиограмма через весь экран */}
-          <div className="relative left-1/2 my-8 h-14 w-screen -translate-x-1/2 text-sage/80 sm:h-16" aria-hidden>
+        </div>
+
+        <div className="relative my-8 h-14 text-sage/80 sm:h-16 lg:col-span-2 lg:col-start-1 lg:row-start-2" aria-hidden>
+          <div className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2">
             <Cardiogram className="h-full w-full" delay={0.6} duration={1.4} onDone={() => setLineDone(true)} />
           </div>
+        </div>
 
+        <div className="relative z-10 lg:col-start-1 lg:row-start-3">
           <motion.div
             initial={reduce ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
@@ -103,7 +107,7 @@ export function Hero() {
         </div>
 
         {/* коллаж из карточек врачей */}
-        <div ref={collageRef} className="relative mx-auto h-[420px] w-full max-w-[460px] sm:h-[500px] lg:mx-0 lg:h-[540px]">
+        <div ref={collageRef} className="relative mx-auto mt-10 h-[420px] lg:col-start-2 lg:row-span-3 lg:row-start-1 lg:mt-0 w-full max-w-[460px] sm:h-[500px] lg:mx-0 lg:h-[540px]">
           <motion.div style={reduce ? undefined : { y: blobY }} className="absolute inset-0">
             <Blob variant={1} className="h-full w-full text-mint" />
           </motion.div>

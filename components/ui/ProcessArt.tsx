@@ -44,8 +44,11 @@ export const processArt: Array<() => React.ReactElement> = [
       <path d="M88 96h104M88 118h70" {...S} />
       <path d="M250 150h70a14 14 0 0 1 14 14v40a14 14 0 0 1-14 14h-8v22l-26-22h-36a14 14 0 0 1-14-14v-40a14 14 0 0 1 14-14z" {...S} fill="#fff" />
       <path d="M262 176h54M262 196h34" {...S} stroke="#9A4A1D" />
-      <path d="M130 196v22a22 22 0 0 0 44 0v-22" {...S} strokeWidth={2.6} />
-      <circle cx="152" cy="236" r="0" />
+      <path d="M112 186v28c0 22 16 34 34 34s34-12 34-34v-28" {...S} strokeWidth={2.6} />
+      <circle cx="112" cy="180" r="6" {...S} strokeWidth={2.6} />
+      <circle cx="180" cy="180" r="6" {...S} strokeWidth={2.6} />
+      <path d="M146 248v10" {...S} strokeWidth={2.6} />
+      <circle cx="146" cy="270" r="12" {...S} fill="#fff" strokeWidth={2.6} />
     </Frame>
   ),
   // 4. назначает только нужное: планшет с короткой отметкой
@@ -55,7 +58,6 @@ export const processArt: Array<() => React.ReactElement> = [
       <rect x="170" y="34" width="60" height="22" rx="8" {...S} fill="#fff" />
       <path d="M142 112l12 12 22-24M196 112h66" {...S} />
       <path d="M142 168h16M176 168h86M142 212h16M176 212h60" {...S} opacity={0.35} />
-      <path d="M142 190l12 12 22-24M196 190h66" {...S} stroke="#9A4A1D" opacity={0} />
     </Frame>
   ),
   // 5. результаты: бланк с кардиограммой

@@ -10,7 +10,7 @@ export function PageHead({ eyebrow, title, lead, children }: { eyebrow?: string;
         {lead && <p className="mt-4 max-w-2xl text-lg text-mute">{lead}</p>}
         {children}
         <div className="mt-8 h-10 w-full max-w-md text-sage/60" aria-hidden>
-          <Cardiogram className="h-full w-full" strokeWidth={2.5} />
+          <Cardiogram className="h-full w-full" strokeWidth={2.5} step={220} />
         </div>
       </div>
     </div>

@@ -12,7 +12,7 @@ export function CountUp({ to, decimals = 0, duration = 1.6, className }: { to: n
   useEffect(() => {
     const el = ref.current;
     if (!el || !inView || reduce) return;
-    const fmt = (v: number) => v.toFixed(decimals).replace('.', ',');
+    const fmt = (v: number) => v.toFixed(decimals);
     const controls = animate(0, to, {
       duration,
       ease: [0.22, 1, 0.36, 1],
@@ -25,7 +25,7 @@ export function CountUp({ to, decimals = 0, duration = 1.6, className }: { to: n
 
   return (
     <span ref={ref} className={className}>
-      {to.toFixed(decimals).replace('.', ',')}
+      {to.toFixed(decimals)}
     </span>
   );
 }
