@@ -70,14 +70,14 @@ export default function Styleguide() {
 
         <section aria-labelledby="sg-cards">
           <h2 id="sg-cards" className="mb-5 text-2xl">Карточки, иконки, формы</h2>
-          <div className="grid gap-5 md:grid-cols-3">
+          <div className="grid gap-5 md:grid-cols-3 [&>*]:min-w-0">
             <Card>
               <Monogram initials="АВ" />
               <p className="mt-3 font-heading text-lg font-medium">Монограмма вместо фото</p>
               <p className="text-mute"><T>{ph.photo}</T></p>
             </Card>
             <Card>
-              <div className="flex gap-3 text-sage">
+              <div className="flex flex-wrap gap-3 text-sage">
                 {(Object.keys(serviceIcons) as ServiceIconName[]).map((n) => <ServiceIcon key={n} name={n} size={34} />)}
               </div>
               <p className="mt-3 text-mute">Линейные иконки направлений</p>
