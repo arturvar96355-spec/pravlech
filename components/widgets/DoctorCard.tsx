@@ -6,7 +6,7 @@ import { ph } from '@/content/placeholders';
 import { getService } from '@/content/services';
 import { Blob } from '../ui/Blob';
 import { Button } from '../ui/Button';
-import { Monogram } from '../ui/Monogram';
+import { DoctorAvatar } from '../ui/DoctorAvatar';
 import { T } from '../ui/Text';
 import { Stars } from '../ui/Stars';
 import { useBooking } from './BookingProvider';
@@ -20,9 +20,9 @@ export function DoctorCard({ doctor, index = 0 }: { doctor: Doctor; index?: numb
     <article className="group relative flex h-full flex-col rounded-[var(--radius-card)] bg-white p-6 shadow-soft transition-[transform,box-shadow] duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-1 hover:shadow-lift focus-within:-translate-y-1 focus-within:shadow-lift">
       <div className="relative mb-5 grid h-32 place-items-center">
         <Blob variant={(index % 3) as 0 | 1 | 2} className="absolute h-full w-auto text-mint-soft" />
-        <Monogram initials={doctor.initials} index={index} size="md" className="relative" />
+        <DoctorAvatar doctor={doctor} index={index} size="md" className="relative" />
       </div>
-      <p className="mb-1 text-center text-[0.8rem] text-mute"><T>{ph.photo}</T></p>
+      {!doctor.photo && <p className="mb-1 text-center text-[0.8rem] text-mute"><T>{ph.photo}</T></p>}
 
       <h3 className="mt-2 text-center text-[1.2rem]">
         <Link href={`/doctors/${doctor.slug}/`} className="link-u after:absolute after:inset-0 after:content-['']">

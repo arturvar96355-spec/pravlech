@@ -11,7 +11,7 @@ import { Magnetic } from '../motion/Magnetic';
 import { SplitLines } from '../motion/SplitLines';
 import { Blob } from '../ui/Blob';
 import { Button, ButtonLink } from '../ui/Button';
-import { Monogram } from '../ui/Monogram';
+import { DoctorAvatar } from '../ui/DoctorAvatar';
 import { Stars } from '../ui/Stars';
 import { T } from '../ui/Text';
 import { useBooking } from '../widgets/BookingProvider';
@@ -119,7 +119,7 @@ export function Hero() {
                   className="float-y flex items-center gap-4 rounded-[var(--radius-card)] bg-white/95 p-4 shadow-lift"
                   style={{ ['--float-d' as string]: slots[i].d, ['--float-delay' as string]: slots[i].delay }}
                 >
-                  <Monogram initials={d.initials} index={i} size="sm" />
+                  <DoctorAvatar doctor={d} index={i} size="sm" />
                   <div className="min-w-0">
                     <p className="font-heading font-medium leading-tight"><T>{d.name}</T></p>
                     <p className="mt-0.5 text-[0.9rem] leading-snug text-mute"><T>{d.specialty}</T></p>
