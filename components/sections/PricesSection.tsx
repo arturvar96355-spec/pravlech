@@ -1,4 +1,5 @@
 import { topItems } from '@/content/prices';
+import { WaveTop } from '../ui/Wave';
 import { site } from '@/content/site';
 import { Badge } from '../ui/Badge';
 import { SectionHead } from '../ui/SectionHead';
@@ -10,9 +11,10 @@ import { T } from '../ui/Text';
 export function PricesSection() {
   const top = topItems();
   return (
-    <section id="prices" aria-labelledby="prices-title" className="section-y bg-white/60 scroll-mt-20">
+    <section id="prices" aria-labelledby="prices-title" className="section-y relative bg-white/60 pt-24 scroll-mt-20 lg:pt-32">
+      <WaveTop />
       <div className="container-x">
-        <SectionHead id="prices-title" eyebrow="Цены" title="Сколько стоит" lead="Ищите по прайсу клиники или посмотрите основные позиции.">
+        <SectionHead id="prices-title" eyebrow="Цены" title="Сколько *стоит*" lead="Ищите по прайсу клиники или посмотрите основные позиции.">
           <Badge tone="peach" className="mt-5">По выходным −{site.weekendDiscount}% на анализы</Badge>
         </SectionHead>
         <ul className="mb-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

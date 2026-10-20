@@ -13,7 +13,7 @@ export function WhySection() {
     <section aria-labelledby="why-title" className="section-y">
       <div className="container-x">
         <div className="mb-2 grid items-center gap-8 lg:grid-cols-[1.2fr_1fr]">
-          <SectionHead id="why-title" eyebrow="Почему возвращаются" title="Почему к нам возвращаются" lead={returnTheme} />
+          <SectionHead id="why-title" eyebrow="Почему возвращаются" title="Почему к нам *возвращаются*" lead={returnTheme} />
           <Reveal className="mb-10 hidden lg:block">
             <RoomScene className="h-auto w-full" />
             <p className="mt-2 text-center text-[0.9rem] text-mute"><T>{ph.centerPhoto}</T></p>

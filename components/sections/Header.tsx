@@ -8,6 +8,7 @@ import { nav, site } from '@/content/site';
 import { Logo } from '../ui/Logo';
 import { Button } from '../ui/Button';
 import { Magnetic } from '../motion/Magnetic';
+import { PagePulse } from '../motion/PagePulse';
 import { A11yPanel } from '../widgets/A11yPanel';
 import { OpenNow } from '../widgets/OpenNow';
 import { useBooking } from '../widgets/BookingProvider';
@@ -57,6 +58,7 @@ export function Header() {
         </div>
       </div>
 
+      <PagePulse />
       <AnimatePresence>
         {menu && (
           <motion.nav

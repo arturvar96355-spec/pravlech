@@ -3,6 +3,7 @@
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { useRef, useState } from 'react';
 import { doctors, featuredHeroDoctors } from '@/content/doctors';
+import { quoteFor } from '@/content/reviews';
 import { site } from '@/content/site';
 import { typograph } from '@/lib/typograph';
 import { Cardiogram } from '../motion/Cardiogram';
@@ -44,7 +45,7 @@ export function Hero() {
         <div className="relative z-10 lg:col-start-1 lg:row-start-1">
           <p className="eyebrow mb-5">Медицинский центр · Перово</p>
           <h1 id="hero-title" className="text-[clamp(2.5rem,7.2vw,4.4rem)] leading-[1.04]">
-            <SplitLines lines={['Врачи, которые', 'объясняют']} />
+            <SplitLines lines={['Врачи, которые', 'объясняют']} markLast />
           </h1>
           <p className="mt-6 max-w-xl text-[1.15rem] text-mute sm:text-xl">
             {typograph('Многопрофильный медицинский центр в Перово. Без лишних анализов и очередей')}
@@ -108,7 +109,9 @@ export function Hero() {
             <motion.div
               key={d.slug}
               style={reduce ? undefined : { y: ys[i] }}
-              className={`absolute w-[250px] sm:w-[280px] ${slots[i].cls}`}
+              tabIndex={0}
+              aria-label={`${d.name}. Что пишут пациенты`}
+              className={`group absolute w-[250px] rounded-[var(--radius-card)] sm:w-[280px] ${slots[i].cls}`}
             >
               <motion.div
                 initial={reduce ? false : { opacity: 0, y: 30, scale: 0.96 }}
@@ -126,6 +129,12 @@ export function Hero() {
                   </div>
                 </div>
               </motion.div>
+              {quoteFor(d.slug) && (
+                <div className="pointer-events-none absolute inset-x-3 top-full z-20 mt-1 translate-y-1 rounded-2xl bg-white p-3 text-[0.9rem] leading-snug opacity-0 shadow-lift transition-[opacity,transform] duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+                  <i>«{quoteFor(d.slug)!.text}»</i>
+                  <span className="mt-1 block text-[0.78rem] text-mute">Яндекс Карты · {quoteFor(d.slug)!.author}</span>
+                </div>
+              )}
             </motion.div>
           ))}
         </div>

@@ -4,8 +4,10 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { LenisProvider } from '@/components/motion/LenisProvider';
 import { Footer } from '@/components/sections/Footer';
 import { Header } from '@/components/sections/Header';
+import { ReturningBar } from '@/components/sections/ReturningBar';
 import { MobileBar } from '@/components/sections/MobileBar';
 import { BookingProvider } from '@/components/widgets/BookingProvider';
+import { ProfileProvider } from '@/components/widgets/ProfileProvider';
 import { site } from '@/content/site';
 import './globals.css';
 
@@ -45,17 +47,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-sage focus:px-5 focus:py-3 focus:text-white">
+        <a href="#main" className="skip-link sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-sage focus:px-5 focus:py-3 focus:text-white">
           К содержанию
         </a>
         <JsonLd />
         <LenisProvider>
+          <ProfileProvider>
           <BookingProvider>
             <Header />
+            <ReturningBar />
             <main id="main">{children}</main>
             <Footer />
             <MobileBar />
           </BookingProvider>
+          </ProfileProvider>
         </LenisProvider>
       </body>
     </html>

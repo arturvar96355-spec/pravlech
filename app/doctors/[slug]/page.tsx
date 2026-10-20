@@ -88,7 +88,10 @@ export default async function DoctorPage({ params }: { params: Promise<{ slug: s
                   <dd className="font-heading text-2xl text-sage"><T>{service?.priceText ?? ''}</T></dd>
                 </div>
               </dl>
-              <div className="mt-6"><DoctorBookButton slug={d.slug} /></div>
+              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
+                <DoctorBookButton slug={d.slug} />
+                <Link href="/memo/" className="link-u text-sage">Памятка: что спросить у врача</Link>
+              </div>
               <p className="mt-3 text-[0.88rem] text-mute">Данные о враче — с сайта клиники на 20.10.2026.</p>
             </div>
 

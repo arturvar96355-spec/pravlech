@@ -7,9 +7,10 @@ import { doctors, specialties, type SpecialtyId } from '@/content/doctors';
 import { cn } from '@/lib/utils';
 import { DoctorCard } from './DoctorCard';
 
-export function DoctorsGrid({ limit, filterable = true }: { limit?: number; filterable?: boolean }) {
+export function DoctorsGrid({ limit, filterable = true, exclude = [] }: { limit?: number; filterable?: boolean; exclude?: readonly string[] }) {
   const [filter, setFilter] = useState<SpecialtyId | 'all'>('all');
-  const list = (filter === 'all' ? doctors : doctors.filter((d) => d.specialtyId === filter)).slice(0, limit);
+  const base = doctors.filter((d) => !exclude.includes(d.slug));
+  const list = (filter === 'all' ? base : base.filter((d) => d.specialtyId === filter)).slice(0, limit);
 
   return (
     <div>

@@ -31,6 +31,8 @@ export type BookingRequest = {
   checkup?: string[];
   /** Ещё люди в этой же заявке (например, мама и ребёнок) */
   others?: Array<{ forWhom: ForWhomId; name: string }>;
+  /** Вопросы, которые пациент хочет задать врачу */
+  questions?: string[];
 };
 
 /** Текст заявки для мессенджера. */
@@ -46,6 +48,7 @@ export function buildBookingMessage(r: BookingRequest): string {
   }
   lines.push(`Имя: ${r.name}.`, `Телефон: ${r.phone}.`);
   if (r.comment?.trim()) lines.push(`Комментарий: ${r.comment.trim()}`);
+  if (r.questions?.length) lines.push(`Вопросы к врачу: ${r.questions.join(' · ')}`);
   lines.push('Время ориентировочное, прошу подтвердить.');
   return lines.join('\n');
 }

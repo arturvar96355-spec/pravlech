@@ -1,4 +1,5 @@
 'use client';
+import { WaveTop } from '../ui/Wave';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
@@ -22,7 +23,8 @@ export function ReviewsSection() {
   const r = carousel[i];
 
   return (
-    <section id="reviews" aria-labelledby="reviews-title" className="section-y bg-mint-soft">
+    <section id="reviews" aria-labelledby="reviews-title" className="section-y relative bg-mint-soft pt-24 lg:pt-32">
+      <WaveTop />
       <div className="container-x">
         <SectionHead id="reviews-title" eyebrow="Отзывы" title="Что пишут пациенты" />
         <div className="grid gap-8 lg:grid-cols-[1fr_1.6fr] lg:items-center">

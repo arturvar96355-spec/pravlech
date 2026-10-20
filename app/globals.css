@@ -232,6 +232,8 @@
   nav,
   .print\:hidden,
   [aria-label='Настройки для слабовидящих'],
+  [aria-label='Ваши данные на этом устройстве'],
+  .skip-link,
   .fixed {
     display: none !important;
   }
@@ -247,4 +249,35 @@
 /* При увеличенном шрифте убираем из шапки необязательное, чтобы не было горизонтального скролла */
 html:not([data-fs='0']) .hdr-open {
   display: none !important;
+}
+
+/* Памятка: чистый лист A4 */
+@page {
+  size: A4;
+  margin: 14mm;
+}
+@media print {
+  .memo-sheet h2,
+  .memo-sheet h3 {
+    break-after: avoid;
+  }
+  .memo-sheet dl > div {
+    break-inside: avoid;
+  }
+}
+
+/* Маркер на ключевом слове заголовка */
+.marker {
+  background-image: linear-gradient(transparent 62%, var(--color-peach) 62%, var(--color-peach) 92%, transparent 92%);
+  background-repeat: no-repeat;
+  padding-inline: 0.08em;
+  margin-inline: -0.08em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+html[data-contrast='high'] .marker {
+  background-image: none;
+  text-decoration: underline;
+  text-decoration-thickness: 0.12em;
+  text-underline-offset: 0.12em;
 }

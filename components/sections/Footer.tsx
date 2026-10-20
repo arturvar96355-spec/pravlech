@@ -2,11 +2,13 @@ import Link from 'next/link';
 import { ShieldAlert } from 'lucide-react';
 import { nav, site } from '@/content/site';
 import { Logo } from '../ui/Logo';
+import { WaveTop } from '../ui/Wave';
 import { T } from '../ui/Text';
 
 export function Footer() {
   return (
-    <footer className="bg-sage-dark text-white">
+    <footer className="relative bg-sage-dark pt-6 text-white sm:pt-10">
+      <WaveTop />
       <div className="container-x pb-28 pt-14 sm:pb-12">
         <div className="rounded-[var(--radius-card)] bg-white p-5 text-ink sm:p-7" role="note">
           <p className="flex items-start gap-3 font-heading text-xl font-semibold leading-snug sm:text-2xl">
@@ -28,6 +30,7 @@ export function Footer() {
             {nav.map((n) => (
               <Link key={n.href} href={n.href} className="link-u w-fit py-1.5">{n.label}</Link>
             ))}
+            <Link href="/memo/" className="link-u w-fit py-1.5">Памятка пациента</Link>
             <Link href="/privacy/" className="link-u w-fit py-1.5">Политика обработки данных</Link>
             <Link href="/upgrade/" className="link-u w-fit py-1.5 text-white/70">Что изменится на сайте</Link>
           </nav>

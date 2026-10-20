@@ -1,13 +1,15 @@
 'use client';
 
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import { Check, ChevronLeft, Copy, MessageCircle, Phone, Plus, Search, X } from 'lucide-react';
+import { CalendarPlus, Check, ChevronLeft, ChevronDown, ClipboardList, Copy, MessageCircle, Phone, Plus, Search, Share2, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useForm, type Resolver } from 'react-hook-form';
 import { z } from 'zod';
 import { bookingTargets } from '@/content/booking';
+import { doctorQuestions, MEMO_KEY, questionsIntro } from '@/content/questions';
 import { site } from '@/content/site';
+import { buildIcs, buildShareText, downloadIcs } from '@/lib/ics';
 import {
   buildBookingMessage,
   forWhomOptions,
@@ -20,6 +22,7 @@ import {
 import { normalize } from '@/lib/normalize';
 import { buildBookingDays } from '@/lib/schedule';
 import { cn } from '@/lib/utils';
+import { useProfile } from './ProfileProvider';
 import { Button, ButtonLink } from '../ui/Button';
 import { T } from '../ui/Text';
 
@@ -70,15 +73,20 @@ export function BookingDrawer({
   const days = useMemo(() => buildBookingDays(14), []);
   const [dayIso, setDayIso] = useState<string | null>(() => days.find((d) => d.slots.length)?.iso ?? null);
   const [time, setTime] = useState<string | null>(null);
-  const [done, setDone] = useState<{ text: string; link: string } | null>(null);
+  const { profile, remember } = useProfile();
+  const [rememberMe, setRememberMe] = useState(false);
+  const [questions, setQuestions] = useState<string[]>([]);
+  const [ownQuestion, setOwnQuestion] = useState('');
+  const [shared, setShared] = useState(false);
+  const [done, setDone] = useState<{ text: string; link: string; who: string; dayLabel: string; time: string; dayIso: string } | null>(null);
   const [copied, setCopied] = useState(false);
-  const [others, setOthers] = useState<Array<{ forWhom: ForWhomId; name: string }>>([]);
+  const [others, setOthers] = useState<Array<{ forWhom: ForWhomId; name: string }>>(() => profile?.people ?? []);
   const panelRef = useRef<HTMLDivElement>(null);
   const day = days.find((d) => d.iso === dayIso);
 
   const form = useForm<FormValues>({
     resolver,
-    defaultValues: { name: '', phone: '', forWhom: 'self', comment: '', consent: false },
+    defaultValues: { name: profile?.name ?? '', phone: profile?.phone ?? '', forWhom: 'self', comment: '', consent: false },
   });
   const { register, handleSubmit, setValue, watch, formState } = form;
   const forWhom = watch('forWhom');
@@ -124,6 +132,8 @@ export function BookingDrawer({
     return bookingTargets.filter((t) => !q || normalize(`${t.label} ${t.sub ?? ''}`).includes(q));
   }, [query]);
 
+  const allQuestions = [...questions, ...(ownQuestion.trim() ? [ownQuestion.trim()] : [])];
+
   const onSubmit = handleSubmit((v) => {
     const text = buildBookingMessage({
       target,
@@ -135,9 +145,24 @@ export function BookingDrawer({
       comment: v.comment,
       checkup,
       others,
+      questions: allQuestions,
     });
     const link = messengerHref(text);
-    setDone({ text, link });
+    if (rememberMe) {
+      remember({
+        name: v.name.trim(),
+        phone: v.phone,
+        people: others.filter((o) => o.name.trim()).map((o) => ({ name: o.name.trim(), forWhom: o.forWhom })),
+        lastDoctor: target?.id.startsWith('d:') ? target.id.slice(2) : undefined,
+        lastService: target?.id.startsWith('s:') ? target.id.slice(2) : undefined,
+      });
+    }
+    try {
+      localStorage.setItem(MEMO_KEY, JSON.stringify(allQuestions));
+    } catch {
+      /* без памятки */
+    }
+    setDone({ text, link, who: target?.phrase ?? 'к врачу', dayLabel: day?.longLabel ?? '', time: time ?? '', dayIso: day?.iso ?? '' });
     // Текст кладём в буфер: в Telegram по ссылке он подставляется не везде
     navigator.clipboard?.writeText(text).catch(() => {});
     window.open(link, '_blank', 'noopener,noreferrer');
@@ -151,6 +176,26 @@ export function BookingDrawer({
       setTimeout(() => setCopied(false), 2000);
     } catch {
       /* буфер недоступен — текст виден на экране */
+    }
+  };
+
+  const shareRelatives = async () => {
+    if (!done) return;
+    const text = buildShareText({ dayLabel: done.dayLabel, time: done.time, who: done.who });
+    try {
+      if (typeof navigator.share === 'function') {
+        await navigator.share({ title: 'Запись в клинику', text });
+        return;
+      }
+    } catch {
+      /* пользователь закрыл окно «Поделиться» — копируем текст */
+    }
+    try {
+      await navigator.clipboard.writeText(text);
+      setShared(true);
+      setTimeout(() => setShared(false), 2000);
+    } catch {
+      /* буфер недоступен */
     }
   };
 
@@ -232,6 +277,20 @@ export function BookingDrawer({
                       <Button variant="secondary" onClick={copy}>
                         <Copy size={18} /> {copied ? 'Скопировано' : 'Скопировать текст'}
                       </Button>
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        <Button
+                          variant="secondary"
+                          onClick={() => downloadIcs(buildIcs({ dateIso: done.dayIso, time: done.time, who: done.who }))}
+                        >
+                          <CalendarPlus size={18} /> В календарь
+                        </Button>
+                        <Button variant="secondary" onClick={shareRelatives}>
+                          <Share2 size={18} /> {shared ? 'Скопировано' : 'Отправить родным'}
+                        </Button>
+                      </div>
+                      <Link href="/memo/" target="_blank" className="link-u inline-flex min-h-11 items-center gap-2 self-start text-sage">
+                        <ClipboardList size={18} aria-hidden /> Памятка для приёма (можно распечатать)
+                      </Link>
                       <ButtonLink variant="secondary" size="lg" href={site.phones[0].href}>
                         <Phone size={20} /> Или позвоните: {site.phones[0].display}
                       </ButtonLink>
@@ -408,6 +467,33 @@ export function BookingDrawer({
                               </button>
                             )}
                           </div>
+                          <details className="group rounded-[20px] bg-white p-4">
+                            <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 font-medium [&::-webkit-details-marker]:hidden">
+                              <span className="flex items-center gap-2"><ClipboardList size={18} className="text-sage" aria-hidden /> Что спросить у врача{allQuestions.length ? ` (${allQuestions.length})` : ''}</span>
+                              <ChevronDown size={18} className="shrink-0 text-sage transition-transform group-open:rotate-180" aria-hidden />
+                            </summary>
+                            <p className="mt-2 text-[0.92rem] text-mute">{questionsIntro}</p>
+                            <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label="Вопросы врачу">
+                              {doctorQuestions.map((q) => {
+                                const on = questions.includes(q.text);
+                                return (
+                                  <button
+                                    type="button"
+                                    key={q.id}
+                                    aria-pressed={on}
+                                    onClick={() => setQuestions((l) => (on ? l.filter((x) => x !== q.text) : [...l, q.text]))}
+                                    className={cn('min-h-11 rounded-full border-2 px-4 text-left text-[0.95rem] transition-colors', on ? 'border-sage bg-sage text-white' : 'border-line bg-white hover:border-sage')}
+                                  >
+                                    {q.text}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                            <label className="mt-3 block">
+                              <span className="sr-only">Свой вопрос врачу</span>
+                              <input value={ownQuestion} onChange={(e) => setOwnQuestion(e.target.value)} maxLength={200} placeholder="Свой вопрос" className={inputCls} />
+                            </label>
+                          </details>
                           <Field label="Комментарий (необязательно)">
                             <textarea rows={3} {...register('comment')} className={cn(inputCls, 'h-auto rounded-[20px] py-3')} />
                           </Field>
@@ -422,6 +508,12 @@ export function BookingDrawer({
                             {formState.errors.consent && <p role="alert" className="mt-1 text-[0.95rem] text-[#a3361d]">{formState.errors.consent.message}</p>}
                           </div>
                         </div>
+                        <label className="mt-4 flex cursor-pointer items-start gap-3 rounded-[16px] bg-mint-soft p-3 text-[0.95rem]">
+                          <input type="checkbox" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} className="mt-1 h-6 w-6 shrink-0 accent-[#2f6f5e]" />
+                          <span>
+                            Запомнить имя, телефон и близких на этом устройстве, чтобы в следующий раз записаться в один клик. Данные остаются в браузере, мы их не получаем.
+                          </span>
+                        </label>
                         <Button type="submit" size="lg" className="mt-6 w-full">Записаться</Button>
                         <p className="mt-3 text-center text-sm text-mute">Нажимая кнопку, Вы соглашаетесь на обработку персональных данных.</p>
                       </form>
