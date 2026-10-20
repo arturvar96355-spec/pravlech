@@ -1,6 +1,6 @@
 import { CheckCheck, Clock3, MessageCircleHeart, Sparkles } from 'lucide-react';
 import { ph } from '@/content/placeholders';
-import { returnTheme, whyCards } from '@/content/reviews';
+import { returnTheme, reviewSource, whyCards, whyNote } from '@/content/reviews';
 import { SectionHead } from '../ui/SectionHead';
 import { Reveal } from '../motion/Reveal';
 import { T } from '../ui/Text';
@@ -27,11 +27,16 @@ export function WhySection() {
                 <span className="grid h-14 w-14 place-items-center rounded-full bg-mint text-sage"><Icon size={28} strokeWidth={1.6} /></span>
                 <h3 className="mt-4 text-xl">{c.title}</h3>
                 <p className="mt-2 text-mute"><T>{c.text}</T></p>
-                <blockquote className="mt-4 border-t border-line pt-4 text-[0.95rem] italic"><T>{c.quote}</T></blockquote>
+                {c.stat && <p className="mt-3 rounded-full bg-peach/60 px-3 py-1 text-[0.85rem] font-medium text-peach-deep">{c.stat}</p>}
+                <figure className="mt-4 border-t border-line pt-4">
+                  <blockquote className="text-[0.95rem] italic"><T>{c.quote.text}</T></blockquote>
+                  <figcaption className="mt-2 text-[0.82rem] text-mute">{reviewSource} · {c.quote.author}{c.quote.date ? `, ${c.quote.date}` : ''}</figcaption>
+                </figure>
               </Reveal>
             );
           })}
         </ul>
+        <p className="mt-6 text-[0.9rem] text-mute">{whyNote}</p>
       </div>
     </section>
   );

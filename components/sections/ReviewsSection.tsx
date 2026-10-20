@@ -3,7 +3,7 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { useState } from 'react';
-import { reviews } from '@/content/reviews';
+import { carousel, reviewSource } from '@/content/reviews';
 import { site } from '@/content/site';
 import { ButtonLink } from '../ui/Button';
 import { SectionHead } from '../ui/SectionHead';
@@ -17,9 +17,9 @@ export function ReviewsSection() {
   const reduce = useReducedMotion();
   const go = (n: number) => {
     setDir(n > 0 ? 1 : -1);
-    setI((cur) => (cur + n + reviews.length) % reviews.length);
+    setI((cur) => (cur + n + carousel.length) % carousel.length);
   };
-  const r = reviews[i];
+  const r = carousel[i];
 
   return (
     <section id="reviews" aria-labelledby="reviews-title" className="section-y bg-mint-soft">
@@ -32,7 +32,7 @@ export function ReviewsSection() {
             <p className="mt-3 text-lg">
               {site.rating.marks}&nbsp;оценок, {site.rating.reviews}&nbsp;отзывов<br />на Яндекс Картах
             </p>
-            <ButtonLink className="mt-6" variant="secondary" href={site.address.mapsUrl}>Читать на Яндекс Картах</ButtonLink>
+            <ButtonLink className="mt-6" variant="secondary" href={site.address.reviewsUrl}>Читать на Яндекс Картах</ButtonLink>
           </div>
 
           <div>
@@ -48,16 +48,16 @@ export function ReviewsSection() {
                   className="rounded-[var(--radius-lg)] bg-white p-7 shadow-soft sm:p-10"
                 >
                   <Stars size={20} />
-                  <blockquote className="mt-4 font-heading text-[1.35rem] leading-snug sm:text-2xl"><T>{r.text}</T></blockquote>
+                  <blockquote className="mt-4 font-heading text-[1.35rem] leading-snug sm:text-2xl"><T>{`«${r.text}»`}</T></blockquote>
                   <figcaption className="mt-5 text-mute">
-                    {r.author}
+                    {reviewSource} · {r.author}{r.date ? `, ${r.date}` : ''}
                     {r.about && <span className="block text-[0.95rem]">{r.about}</span>}
                   </figcaption>
                 </motion.figure>
               </AnimatePresence>
             </div>
             <div className="mt-5 flex items-center justify-between">
-              <p className="text-mute" aria-hidden>{i + 1} / {reviews.length}</p>
+              <p className="text-mute" aria-hidden>{i + 1} / {carousel.length}</p>
               <div className="flex gap-2">
                 <button onClick={() => go(-1)} aria-label="Предыдущий отзыв" className="grid h-12 w-12 place-items-center rounded-full border-2 border-sage/25 bg-white text-sage hover:border-sage"><ChevronLeft /></button>
                 <button onClick={() => go(1)} aria-label="Следующий отзыв" className="grid h-12 w-12 place-items-center rounded-full border-2 border-sage/25 bg-white text-sage hover:border-sage"><ChevronRight /></button>

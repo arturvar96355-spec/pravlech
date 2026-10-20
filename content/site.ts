@@ -32,7 +32,7 @@ export const site = {
     zip: '111394',
     district: 'Перово, ВАО',
     mapsUrl: `https://yandex.ru/maps/org/${ORG_ID}/`,
-    reviewsUrl: `https://yandex.ru/maps/org/${ORG_ID}/reviews/`,
+    reviewsUrl: `https://yandex.com/maps/org/multidisciplinary_medical_center_pravil_noe_lechenie/${ORG_ID}/reviews/`,
     coords: [55.743504, 37.799209] as const,
   },
   rating: { value: 5.0, marks: 437, reviews: 278, source: 'Яндекс Карты' },

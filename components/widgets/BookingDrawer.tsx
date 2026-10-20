@@ -332,6 +332,7 @@ export function BookingDrawer({
                         </div>
                         <p className="mt-4 rounded-[16px] bg-peach/50 p-3 text-[0.95rem]">
                           Ориентировочно — администратор подтвердит время. <T>{site.misNote}</T>
+                          <span className="mt-1 block">Стоимость уточняйте при записи. Дополнительные процедуры — только по согласованию с Вами.</span>
                         </p>
                         <Button size="lg" className="mt-5 w-full" disabled={!time || !day} onClick={() => go(2)}>
                           Дальше

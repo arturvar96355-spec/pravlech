@@ -11,7 +11,7 @@ import { Reveal } from '../motion/Reveal';
 export function ContactsBlock({ level = 2 }: { level?: 2 | 3 }) {
   const Sub = level === 2 ? 'h2' : 'h3';
   return (
-    <div className="grid gap-8 lg:grid-cols-2">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-2">
       <Reveal className="space-y-6">
         <div className="rounded-[var(--radius-card)] bg-white p-6 shadow-soft">
           <p className="flex items-start gap-3 text-lg">
@@ -41,7 +41,7 @@ export function ContactsBlock({ level = 2 }: { level?: 2 | 3 }) {
         </div>
 
         <div className="rounded-[var(--radius-card)] bg-white p-4 shadow-soft">
-          <div className="flex items-center justify-between px-4 py-2">
+          <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-2">
             <Sub className="text-xl">Режим работы</Sub>
             <OpenNow className="text-sage-dark" />
           </div>

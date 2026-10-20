@@ -11,7 +11,7 @@ import { PriceList } from '@/components/widgets/PriceList';
 import { ServiceBookButton } from '@/components/widgets/ServiceBookButton';
 import { doctors } from '@/content/doctors';
 import { processSteps } from '@/content/process';
-import { bringChild, bringList, bringNote } from '@/content/preparation';
+import { bringChild, bringList, bringNote, priceClarity } from '@/content/preparation';
 import { getPriceGroup } from '@/content/prices';
 import { promos } from '@/content/promos';
 import { getService, priceGroupByService, services } from '@/content/services';
@@ -117,6 +117,14 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               <p className="mt-3 text-[0.92rem] text-mute">{bringChild}</p>
               <p className="mt-2 text-[0.9rem]"><T>{bringNote}</T></p>
               <p className="mt-3 text-[0.92rem] text-mute">Как готовиться к исследованию, скажет врач или администратор при записи.</p>
+            </Reveal>
+
+            <Reveal className="rounded-[var(--radius-card)] bg-peach/40 p-6">
+              <h2 className="text-xl">{priceClarity.title}</h2>
+              <ul className="mt-3 space-y-2">
+                {priceClarity.items.map((t) => <li key={t} className="flex gap-2"><span aria-hidden className="mt-[0.7em] h-1.5 w-1.5 shrink-0 rounded-full bg-peach-deep" />{t}</li>)}
+              </ul>
+              <p className="mt-3 text-[0.9rem]"><T>{priceClarity.note}</T></p>
             </Reveal>
 
             <Reveal className="rounded-[var(--radius-card)] bg-white p-6 shadow-soft">

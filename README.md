@@ -34,7 +34,7 @@ public/              favicon.svg, og.jpg, robots.txt
 ### Как внести данные клиента
 - Телефоны, адрес, режим, Telegram (куда уходят заявки), e-mail, лицензия, реквизиты — `content/site.ts`.
 - Врачи — `content/doctors.ts`. Направления — `content/services.ts`. Прайс (одна таблица на весь сайт) — `content/prices.ts`. Чек-ап — `content/checkup.ts`. Акции — `content/promos.ts`.
-- Подсказки «С чем Вы пришли» — `content/triage.ts`. Отзывы — `content/reviews.ts`.
+- Подсказки «С чем Вы пришли» — `content/triage.ts`. Отзывы — `content/reviews.ts` (цитаты не сверены с оригиналом, см. `DECISIONS.md`).
 - Источники фото — `content/credits.ts`.
 
 ### Заглушки

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { type Doctor } from '@/content/doctors';
 import { ph } from '@/content/placeholders';
+import { quoteFor } from '@/content/reviews';
 import { getService } from '@/content/services';
 import { Blob } from '../ui/Blob';
 import { Button } from '../ui/Button';
@@ -14,6 +15,7 @@ import { useBooking } from './BookingProvider';
 export function DoctorCard({ doctor, index = 0 }: { doctor: Doctor; index?: number }) {
   const { openBooking } = useBooking();
   const service = getService(doctor.serviceId);
+  const q = quoteFor(doctor.slug);
   const priceLine = `${service?.priceCaption ?? 'Цена'}: ${service?.priceText ?? ''}`;
 
   return (
@@ -41,7 +43,8 @@ export function DoctorCard({ doctor, index = 0 }: { doctor: Doctor; index?: numb
           <T>{priceLine}</T>
         </p>
         <blockquote className="col-start-1 row-start-1 text-center text-[0.95rem] italic text-ink opacity-0 transition-opacity duration-300 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-focus-within:opacity-100">
-          <T>{doctor.quote}</T>
+          <T>{q ? `«${q.text}»` : doctor.quote}</T>
+          {q && <span className="mt-1 block text-[0.8rem] not-italic text-mute">Отзыв на Яндекс Картах · {q.author}</span>}
         </blockquote>
       </div>
 

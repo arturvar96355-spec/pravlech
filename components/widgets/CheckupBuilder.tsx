@@ -4,7 +4,7 @@ import { AnimatePresence, LayoutGroup, motion } from 'motion/react';
 import { Check, Plus } from 'lucide-react';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import { checkupDisclaimer, checkupItems, checkupPresets, presetNote, type CheckupItem } from '@/content/checkup';
+import { checkupDisclaimer, checkupItems, checkupPresets, familyNote, presetNote, type CheckupItem } from '@/content/checkup';
 import { site } from '@/content/site';
 import { formatPrice } from '@/lib/typograph';
 import { cn } from '@/lib/utils';
@@ -58,6 +58,11 @@ export function CheckupBuilder({ compact = false }: { compact?: boolean }) {
             ))}
             <span className="text-[0.9rem]"><T>{presetNote}</T></span>
           </div>
+          {isPreset(checkupPresets.find((p) => p.id === 'family')!.items) && (
+            <p className="mb-5 rounded-[var(--radius-md)] bg-mint-soft p-4 text-[0.98rem]">
+              {familyNote.text} <i>«{familyNote.quote}»</i> — {familyNote.author}, Яндекс Карты.
+            </p>
+          )}
 
           <ul className="grid gap-3 sm:grid-cols-2">
             {items.map((item) => {

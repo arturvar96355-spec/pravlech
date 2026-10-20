@@ -14,7 +14,7 @@ export function OpenNow({ className }: { className?: string }) {
   }, []);
 
   return (
-    <span className={cn('inline-flex items-center gap-2 whitespace-nowrap text-[0.95rem] font-medium', className)} aria-live="polite">
+    <span className={cn('inline-flex items-center gap-2 text-[0.95rem] sm:whitespace-nowrap font-medium', className)} aria-live="polite">
       <span className="relative grid h-2.5 w-2.5 place-items-center" aria-hidden>
         {status?.open && <span className="beat-ring absolute inset-[-4px] rounded-full bg-sage" />}
         <span className={cn('h-2.5 w-2.5 rounded-full', status ? (status.open ? 'bg-sage' : 'bg-[#a79d8b]') : 'bg-line')} />

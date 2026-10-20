@@ -10,7 +10,7 @@ import { T } from '@/components/ui/Text';
 import { DoctorBookButton } from '@/components/widgets/DoctorBookButton';
 import { doctors, getDoctor, officialDoctorUrl } from '@/content/doctors';
 import { ph } from '@/content/placeholders';
-import { reviews } from '@/content/reviews';
+import { reviewSource, reviewsFor } from '@/content/reviews';
 import { getService } from '@/content/services';
 
 export function generateStaticParams() {
@@ -57,7 +57,7 @@ export default async function DoctorPage({ params }: { params: Promise<{ slug: s
   const d = getDoctor(slug);
   if (!d) notFound();
   const service = getService(d.serviceId);
-  const slots = reviews.filter((r) => r.doctorSlug === d.slug);
+  const slots = reviewsFor(d.slug);
   const index = doctors.indexOf(d);
 
   return (
@@ -132,13 +132,15 @@ export default async function DoctorPage({ params }: { params: Promise<{ slug: s
             )}
 
             <Block title="Что пишут пациенты">
-              {(slots.length ? slots : [{ id: 'x', text: d.quote, author: 'Отзыв на Яндекс Картах' }]).map((r) => (
-                <figure key={r.id} className="rounded-[var(--radius-card)] bg-white p-6 shadow-soft">
-                  <Stars size={18} />
-                  <blockquote className="mt-3 font-heading text-xl"><T>{r.text}</T></blockquote>
-                  <figcaption className="mt-3 text-mute">{r.author}</figcaption>
-                </figure>
-              ))}
+              <div className="space-y-4">
+                {(slots.length ? slots : [{ id: 'x', text: d.quote, author: '', date: '' }]).map((r) => (
+                  <figure key={r.id} className="rounded-[var(--radius-card)] bg-white p-6 shadow-soft">
+                    <Stars size={18} />
+                    <blockquote className="mt-3 font-heading text-xl"><T>{slots.length ? `«${r.text}»` : r.text}</T></blockquote>
+                    <figcaption className="mt-3 text-mute">{reviewSource}{r.author ? ` · ${r.author}${r.date ? `, ${r.date}` : ''}` : ''}</figcaption>
+                  </figure>
+                ))}
+              </div>
             </Block>
           </div>
         </div>

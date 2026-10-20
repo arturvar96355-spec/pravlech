@@ -38,7 +38,15 @@ export type CheckupPreset = { id: string; label: string; items: string[] };
 export const checkupPresets: CheckupPreset[] = [
   { id: 'heart', label: 'Сердце', items: ['c-cardio', 'c-ecg', 'c-echo'] },
   { id: 'after40', label: 'После 40', items: ['c-therapist', 'c-cardio', 'c-ecg', 'c-echo', 'c-labs'] },
+  { id: 'family', label: 'Для семьи', items: ['c-therapist', 'c-us', 'c-labs'] },
 ];
+
+/** Отзывы на Картах описывают «семейный чек-ап»: вся семья в одном месте. */
+export const familyNote = {
+  text: 'Для семьи: на каждого — терапевт, УЗИ и анализ крови. Запишите нескольких человек одной заявкой.',
+  quote: 'Всё сразу и в одном месте!',
+  author: 'Наталья К.',
+};
 
 export const presetNote = '[состав наборов — согласовать с клиникой]';
 export const checkupDisclaimer = 'Предварительный расчёт. Окончательный план — после консультации терапевта.';
