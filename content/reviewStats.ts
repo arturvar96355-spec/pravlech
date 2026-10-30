@@ -1,10 +1,9 @@
 import type { TopicId } from './reviews';
 
 /**
- * Числа из выгрузки отзывов Яндекс Карт: 150 из 278 отзывов, просмотрены 20.10.2026.
- * Значения приблизительные («около»): так их дал разбор отзывов.
+ * Демо-числа вымышленной клиники, нужны только для показа блока.
  */
-export const statsNote = '150 из 278 отзывов на Яндекс Картах, просмотрены 20.10.2026. Числа приблизительные.';
+export const statsNote = 'Демо-данные: числа и отзывы вымышлены, клиника не существует.';
 
 export type ThemeStat = { id: TopicId; label: string; value: number; approx: true };
 
@@ -18,14 +17,14 @@ export type MentionStat = { slug: string; label: string; value: number; display?
 
 /** Сколько отзывов среди 150 просмотренных называют врача. */
 export const mentionStats: MentionStat[] = [
-  { slug: 'vardanyan-argishti-gagikovich', label: 'А. Г. Варданян', value: 51 },
-  { slug: 'salkaev-marat-ravilovich', label: 'М. Р. Салькаев', value: 12 },
-  { slug: 'ermoshkina-natalya-yurevna', label: 'Н. Ю. Ермошкина', value: 11 },
-  { slug: 'goar', label: 'Гоар (процедурный кабинет)', value: 7 },
-  { slug: 'vitushkina-yuliya-valerevna', label: 'Ю. В. Витушкина', value: 4 },
-  { slug: 'sarkisyan-anait-pavlovna', label: 'А. П. Саркисян', value: 4 },
-  { slug: 'yasinskaya-svetlana-borisovna', label: 'С. Б. Ясинская', value: 2 },
-  { slug: 'glazovskaya-olga-vadimovna', label: 'О. В. Глазовская', value: 2, display: '1–2' },
-  { slug: 'krizmanich-mariya-pavlovna', label: 'М. П. Кризманич', value: 1 },
-  { slug: 'salaeva-gyunaj-damirovna', label: 'Г. Д. Салаева', value: 0 },
+  { slug: 'lavrov-igor-sergeevich', label: 'И. С. Лавров', value: 51 },
+  { slug: 'gromov-andrey-nikolaevich', label: 'А. Н. Громов', value: 12 },
+  { slug: 'morozova-elena-viktorovna', label: 'Е. В. Морозова', value: 11 },
+  { slug: 'irina', label: 'Ирина (процедурный кабинет)', value: 7 },
+  { slug: 'belova-tatyana-andreevna', label: 'Т. А. Белова', value: 4 },
+  { slug: 'zorina-marina-leonidovna', label: 'М. Л. Зорина', value: 4 },
+  { slug: 'tikhonova-ksenia-pavlovna', label: 'К. П. Тихонова', value: 2 },
+  { slug: 'koltsova-viktoriya-andreevna', label: 'В. А. Кольцова', value: 2, display: '1–2' },
+  { slug: 'rudenko-alina-olegovna', label: 'А. О. Руденко', value: 1 },
+  { slug: 'mirova-darya-sergeevna', label: 'Д. С. Мирова', value: 0 },
 ];

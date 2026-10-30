@@ -7,7 +7,7 @@ export type Promo = {
   serviceId: string;
 };
 
-/** Акции с pravlech.ru (раздел «Акции»). Сроков действия на сайте клиники нет. */
+/** Примерные акции для демо. */
 export const promoTerm = '[срок действия — уточнить]';
 
 export const promos: Promo[] = [

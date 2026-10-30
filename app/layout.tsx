@@ -14,11 +14,11 @@ import './globals.css';
 const rubik = Rubik({ subsets: ['latin', 'cyrillic'], weight: ['500', '600'], display: 'swap', variable: '--font-rubik' });
 const onest = Onest({ subsets: ['latin', 'cyrillic'], weight: ['400', '500'], display: 'swap', variable: '--font-onest' });
 
-const description = 'Многопрофильный медицинский центр в Перово. Кардиолог, невролог, ЛОР, УЗИ, анализы. Без лишних анализов и очередей. Запись онлайн.';
+const description = 'Многопрофильный медицинский центр (демо-проект для портфолио). Кардиолог, невролог, ЛОР, УЗИ, анализы. Без лишних анализов и очередей. Запись онлайн.';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://pravlech.example'),
-  title: `${site.name} — медицинский центр в Перово`,
+  metadataBase: new URL('https://example.com'),
+  title: `${site.name} — медицинский центр (демо-проект)`,
   description,
   robots: { index: false, follow: false },
   openGraph: {
@@ -42,7 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{var p=JSON.parse(localStorage.getItem('pravlech-a11y')||'{}'),r=document.documentElement;r.dataset.fs=String(p.fs===1||p.fs===2?p.fs:0);r.dataset.contrast=p.hc?'high':'normal'}catch(e){}",
+              "try{var p=JSON.parse(localStorage.getItem('yasny-a11y')||'{}'),r=document.documentElement;r.dataset.fs=String(p.fs===1||p.fs===2?p.fs:0);r.dataset.contrast=p.hc?'high':'normal'}catch(e){}",
           }}
         />
       </head>

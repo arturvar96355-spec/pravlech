@@ -10,7 +10,7 @@ import { Stars } from '@/components/ui/Stars';
 import { T } from '@/components/ui/Text';
 import { ph } from '@/content/placeholders';
 
-export const metadata: Metadata = { title: 'Дизайн-система — Правильное лечение' };
+export const metadata: Metadata = { title: 'Дизайн-система — Ясный приём' };
 
 const colors = [
   ['cream', '#FBF8F3', 'Фон'],
@@ -24,7 +24,7 @@ const colors = [
 export default function Styleguide() {
   return (
     <>
-      <PageHead eyebrow="Дизайн-система" title="Правильное лечение: основа" lead="Цвета, шрифты, кнопки, карточки и заглушки. Страница для разработки." />
+      <PageHead eyebrow="Дизайн-система" title="Ясный приём: основа" lead="Цвета, шрифты, кнопки, карточки и заглушки. Страница для разработки." />
       <div className="container-x space-y-16 py-14">
         <section aria-labelledby="sg-colors">
           <h2 id="sg-colors" className="mb-5 text-2xl">Цвета</h2>

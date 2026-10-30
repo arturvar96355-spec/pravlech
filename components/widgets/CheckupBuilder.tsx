@@ -60,7 +60,7 @@ export function CheckupBuilder({ compact = false }: { compact?: boolean }) {
           </div>
           {isPreset(checkupPresets.find((p) => p.id === 'family')!.items) && (
             <p className="mb-5 rounded-[var(--radius-md)] bg-mint-soft p-4 text-[0.98rem]">
-              {familyNote.text} <i>«{familyNote.quote}»</i> — {familyNote.author}, Яндекс Карты.
+              {familyNote.text} <i>«{familyNote.quote}»</i> — {familyNote.author}, пример отзыва.
             </p>
           )}
 

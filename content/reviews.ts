@@ -1,10 +1,10 @@
-const Q = '[цитата из отзыва на Яндекс Картах — подобрать]';
+const Q = '[пример отзыва — добавить]';
 
 export type Review = {
   id: string;
-  /** Дословный фрагмент отзыва. Исправлены только явные опечатки. */
+  /** Вымышленный текст для демо */
   text: string;
-  /** Имя и первая буква фамилии, как на Картах */
+  /** Вымышленный автор */
   author: string;
   /** ММ.ГГГГ */
   date?: string;
@@ -16,50 +16,47 @@ export type Review = {
 
 export type TopicId = 'explain' | 'no-extra' | 'no-queue' | 'clean' | 'care' | 'one-place';
 
-export const reviewSource = 'Отзыв на Яндекс Картах';
+export const reviewSource = 'Пример отзыва';
 
-/**
- * Цитаты из отзывов на Яндекс Картах (выгрузка 20.10.2026, 150 из 278 отзывов).
- * Перед публикацией сверить с оригиналом и получить согласие клиники и авторов.
- */
+/** Все отзывы вымышлены: демо-проект для портфолио. */
 export const reviewsVerified = false;
 
-const V = 'vardanyan-argishti-gagikovich';
-const E = 'ermoshkina-natalya-yurevna';
-const S = 'salkaev-marat-ravilovich';
-const VI = 'vitushkina-yuliya-valerevna';
+const V = 'lavrov-igor-sergeevich';
+const E = 'morozova-elena-viktorovna';
+const S = 'gromov-andrey-nikolaevich';
+const VI = 'belova-tatyana-andreevna';
 
 export const reviews: Review[] = [
-  // Варданян
-  { id: 'v1', topics: ['explain'], doctorSlug: V, author: 'Евгения Л.', date: '10.2024', text: 'Доктор действительно лечит и детально объясняет, почему назначен тот или иной препарат.' },
-  { id: 'v2', topics: ['care'], doctorSlug: V, author: 'Геворк М.', date: '11.2025', text: 'Очень грамотный, внимательный и тактичный врач.' },
-  { id: 'v3', topics: ['care'], doctorSlug: V, author: 'Лидия В.', date: '08.2025', text: 'Он действительно хочет помочь.' },
-  { id: 'v4', topics: ['care'], doctorSlug: V, author: 'Катя С.', date: '04.2024', text: 'Аргишти Гагикович — человек с огромным сердцем, потрясающе чуткий и участливый.' },
-  // Ермошкина
-  { id: 'e1', topics: ['explain'], doctorSlug: E, author: 'Ольга Т.', date: '12.2022', text: 'Консультация длилась более часа.' },
-  { id: 'e2', topics: ['explain'], doctorSlug: E, author: 'Наталья И.', date: '07.2022', text: 'Наталья Юрьевна ответила на все наши вопросы' },
-  // Салькаев
-  { id: 's1', topics: ['explain'], doctorSlug: S, author: 'Maria C.', date: '10.2024', text: 'Меня принял замечательный врач Марат Равилович, всё подробно объяснил, обследовал, прописал лечение.' },
-  { id: 's2', topics: ['no-extra'], doctorSlug: S, author: 'Яна К.', date: '04.2023', text: 'Не посадил на антибиотики' },
-  { id: 's3', topics: ['care'], doctorSlug: S, author: 'Людмила Л.', date: '12.2022', text: '…это настоящий доктор Айболит!)' },
-  // Гоар
-  { id: 'g1', topics: ['care'], doctorSlug: 'goar', author: 'Татьяна Д.', date: '10.2024', text: 'попадает в самые плохие вены с первого раза' },
-  { id: 'g2', topics: ['care'], doctorSlug: 'goar', author: 'Нина', date: '12.2023', text: 'Особое уважение и признательность выражаю медсестре Гоар, которая фантастически делает уколы и ставит капельницы.' },
+  // Лавров
+  { id: 'v1', topics: ['explain'], doctorSlug: V, author: 'Анна К.', date: '03.2026', text: 'Врач подробно объяснил, зачем назначено каждое лекарство и как понять, что лечение работает.' },
+  { id: 'v2', topics: ['care'], doctorSlug: V, author: 'Сергей М.', date: '02.2026', text: 'Внимательный и спокойный врач, выслушал до конца и не торопил.' },
+  { id: 'v3', topics: ['care'], doctorSlug: V, author: 'Ирина В.', date: '12.2025', text: 'После приёма осталось ощущение, что мне действительно хотят помочь.' },
+  { id: 'v4', topics: ['explain'], doctorSlug: V, author: 'Павел С.', date: '09.2025', text: 'Расшифровал кардиограмму простыми словами и нарисовал, что именно проверяли.' },
+  // Морозова
+  { id: 'e1', topics: ['explain'], doctorSlug: E, author: 'Ольга Т.', date: '01.2026', text: 'Консультация длилась больше часа, на все вопросы получила ответы.' },
+  { id: 'e2', topics: ['explain'], doctorSlug: E, author: 'Наталья И.', date: '11.2025', text: 'Спокойно разобрала мои жалобы и объяснила план обследования по шагам.' },
+  // Громов
+  { id: 's1', topics: ['explain'], doctorSlug: S, author: 'Мария Д.', date: '02.2026', text: 'Всё подробно объяснил, осмотрел и рассказал, как ухаживать дома.' },
+  { id: 's2', topics: ['no-extra'], doctorSlug: S, author: 'Яна Р.', date: '10.2025', text: 'Не назначил ничего лишнего, только то, что действительно нужно.' },
+  { id: 's3', topics: ['care'], doctorSlug: S, author: 'Людмила Н.', date: '08.2025', text: 'Нашёл подход к ребёнку, дочь шла на приём без страха.' },
+  // Ирина
+  { id: 'g1', topics: ['care'], doctorSlug: 'irina', author: 'Татьяна Б.', date: '01.2026', text: 'Берёт кровь аккуратно и быстро, почти не почувствовала.' },
+  { id: 'g2', topics: ['care'], doctorSlug: 'irina', author: 'Нина А.', date: '12.2025', text: 'Очень доброжелательная медсестра, всё объясняет перед процедурой.' },
   // Остальные врачи
-  { id: 'vi1', topics: ['explain'], doctorSlug: VI, author: 'Ирина М.', date: '11.2024', text: 'Поставила верный диагноз, сразу же провела лечение (промывку уха) и дала рекомендации.' },
-  { id: 'sa1', topics: ['care'], doctorSlug: 'sarkisyan-anait-pavlovna', author: 'Наталия', date: '02.2025', text: 'Очень грамотно и досконально осматривает' },
-  { id: 'k1', topics: ['explain'], doctorSlug: 'krizmanich-mariya-pavlovna', author: 'Алексей М.', date: '03.2025', text: 'Не просто решит проблему, но и все объяснит, подскажет, что делать дальше' },
-  { id: 'gl1', topics: ['care'], doctorSlug: 'glazovskaya-olga-vadimovna', author: 'Алёна Н.', date: '12.2025', text: 'Осмотр и все манипуляции провела максимально аккуратно, без какого-либо дискомфорта.' },
+  { id: 'vi1', topics: ['explain'], doctorSlug: VI, author: 'Елена М.', date: '02.2026', text: 'Внимательно осмотрела ребёнка и подробно объяснила, что делать дальше.' },
+  { id: 'sa1', topics: ['care'], doctorSlug: 'zorina-marina-leonidovna', author: 'Наталия Ф.', date: '03.2026', text: 'Осмотр очень тщательный, всё показала на экране и прокомментировала.' },
+  { id: 'k1', topics: ['explain'], doctorSlug: 'rudenko-alina-olegovna', author: 'Алексей Г.', date: '01.2026', text: 'Не просто назначила лечение, а объяснила, как ухаживать за кожей дальше.' },
+  { id: 'gl1', topics: ['care'], doctorSlug: 'koltsova-viktoriya-andreevna', author: 'Алёна П.', date: '12.2025', text: 'Осмотр прошёл аккуратно и без дискомфорта, врач всё пояснила.' },
   // О центре
-  { id: 'c1', topics: ['care'], author: 'Нюра Я.', date: '08.2026', text: 'Цель действительно помочь пациенту, это редкость в наше время.' },
-  { id: 'c2', topics: ['no-extra'], author: 'Ирина К.', date: '04.2025', text: 'Здесь не коммерция и желание заработать побольше денег, здесь — главное пациент и помощь ему!' },
-  { id: 'c3', topics: ['no-extra'], author: 'Нина Л.', date: '07.2023', text: 'Лишних услуг и назначений анализов не навязывали, приятные цены, скидки на анализы.' },
-  { id: 'c4', topics: ['no-queue'], author: 'Евгения', date: '02.2024', text: 'Все нравится, все на уровне, спокойно, без толкучки, без спешки.' },
-  { id: 'c5', topics: ['one-place'], author: 'Наталья К.', date: '04.2025', text: 'Всё сразу и в одном месте!', about: 'о семейном обследовании: анализы, УЗИ и врачи' },
-  { id: 'w1', topics: ['explain'], author: 'Sofi L.', date: '03.2026', text: 'Подробно все рассказал, объяснил, остались только положительные впечатления.' },
-  { id: 'w2', topics: ['no-extra'], author: 'Алена З.', date: '04.2023', text: 'Самое главное все обследования и анализы назначаются строго необходимые по состоянию здоровья.' },
-  { id: 'w3', topics: ['no-queue'], author: 'Антон С.', date: '06.2023', text: 'ждать не пришлось, ровно по времени записи приняли' },
-  { id: 'w4', topics: ['clean'], author: 'Любовь Ш.', date: '05.2024', text: 'Очень чистый, атмосфера дружелюбная.' },
+  { id: 'c1', topics: ['care'], author: 'Виктор Я.', date: '02.2026', text: 'Чувствуется, что цель врачей — помочь пациенту, а не продать побольше услуг.' },
+  { id: 'c2', topics: ['no-extra'], author: 'Ирина К.', date: '03.2026', text: 'Лишних анализов не навязывали, а цены в прайсе совпали с тем, что назвали в регистратуре.' },
+  { id: 'c3', topics: ['no-extra'], author: 'Нина Л.', date: '11.2025', text: 'Назначили только необходимое и объяснили, зачем каждое обследование.' },
+  { id: 'c4', topics: ['no-queue'], author: 'Евгения С.', date: '01.2026', text: 'Спокойно, без толкотни и спешки, приём начался вовремя.' },
+  { id: 'c5', topics: ['one-place'], author: 'Наталья Ч.', date: '12.2025', text: 'Всё сразу и в одном месте: врач, УЗИ и анализы за один визит.', about: 'о семейном чек-апе' },
+  { id: 'w1', topics: ['explain'], author: 'Софья Л.', date: '03.2026', text: 'Подробно всё рассказали и объяснили, ушла без тревоги и с понятным планом.' },
+  { id: 'w2', topics: ['no-extra'], author: 'Алена З.', date: '02.2026', text: 'Обследования назначают строго по необходимости, без «на всякий случай».' },
+  { id: 'w3', topics: ['no-queue'], author: 'Антон Б.', date: '04.2026', text: 'Ждать не пришлось, приняли ровно по времени записи.' },
+  { id: 'w4', topics: ['clean'], author: 'Любовь Ш.', date: '01.2026', text: 'Чисто, тихо, дружелюбная атмосфера.' },
 ];
 
 /** Для карусели: общие отзывы и по одному-два о врачах. */
@@ -82,7 +79,7 @@ export type WhyCard = {
   title: string;
   text: string;
   icon: 'message' | 'check' | 'clock' | 'sparkle';
-  /** Сколько из 150 просмотренных отзывов говорят об этом (по выгрузке, примерно) */
+  /** Сколько из 150 отзывов говорят об этом (демо-данные) */
   stat?: string;
   quote: Review;
 };
@@ -94,7 +91,7 @@ export const whyCards: WhyCard[] = [
     title: 'Объясняют',
     text: 'Врач рассказывает, что и зачем, простыми словами.',
     icon: 'message',
-    stat: 'Это пишут примерно в 40 из 150 просмотренных отзывов',
+    stat: 'Это пишут примерно в 40 из 150 отзывов (демо)',
     quote: byId('w1'),
   },
   {
@@ -123,6 +120,6 @@ export const whyCards: WhyCard[] = [
 ];
 
 export const returnTheme = 'Многие ходят к «своему» врачу годами и приводят семью.';
-export const whyNote = 'Цифры — по 150 отзывам на Яндекс Картах, которые мы просмотрели 20.10.2026 (всего их 278).';
+export const whyNote = 'Демо-данные: цифры и отзывы вымышлены.';
 
 export const placeholderQuote = Q;

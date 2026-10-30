@@ -13,59 +13,46 @@ export const hours: DayHours[] = [
   { day: 0, short: 'Вс', long: 'Воскресенье', open: 8, close: 18 },
 ];
 
-const ORG_ID = '22544076845';
-
 export const site = {
-  name: 'Правильное лечение',
-  fullName: 'Медицинский центр «Правильное лечение»',
+  name: 'Ясный приём',
+  fullName: 'Медицинский центр «Ясный приём»',
   tagline: 'Врачи, которые объясняют',
   tz: 'Europe/Moscow',
-  /** Первые два показываем в шапке. Третий — из карточки Яндекс Карт, на сайте клиники его нет. */
+  /** Демо-номера: ни один не настоящий. */
   phones: [
-    { display: '+7 (495) 150-69-99', href: 'tel:+74951506999' },
-    { display: '+7 (969) 150-69-99', href: 'tel:+79691506999' },
+    { display: '+7 (000) 000-00-00', href: 'tel:+70000000000' },
+    { display: '+7 (000) 000-00-01', href: 'tel:+70000000001' },
   ],
-  extraPhones: [{ display: '+7 (495) 287-64-48', href: 'tel:+74952876448', note: '[актуален ли номер — уточнить]' }],
-  email: '1506999@bk.ru',
+  extraPhones: [] as Array<{ display: string; href: string; note: string }>,
+  email: 'info@example.com',
   address: {
-    street: 'Москва, Перовская ул., 66к3',
-    zip: '111394',
-    district: 'Перово, ВАО',
-    mapsUrl: `https://yandex.ru/maps/org/${ORG_ID}/`,
-    reviewsUrl: `https://yandex.com/maps/org/multidisciplinary_medical_center_pravil_noe_lechenie/${ORG_ID}/reviews/`,
-    coords: [55.743504, 37.799209] as const,
+    street: 'Город N, ул. Примерная, 1',
+    zip: '000000',
+    district: 'Демо-адрес',
   },
-  rating: { value: 5.0, marks: 437, reviews: 278, source: 'Яндекс Карты' },
-  /** Заявки уходят в Telegram: на сайте клиники мессенджер именно он. */
+  /** Демо-цифры: вымышленная клиника. */
+  rating: { value: 4.9, marks: 312, reviews: 168, source: 'демо-данные' },
+  /** Заявка копируется в буфер и открывается Telegram без чата: демо-проект ничего не отправляет. */
   messenger: {
     name: 'Telegram',
-    phone: '79691506999',
-    chatUrl: 'https://t.me/+79691506999',
+    chatUrl: 'https://t.me/',
   },
-  social: { vk: 'https://vk.com/pravlech' },
-  legalEntity: 'ООО «ПРАВИЛЬНОЕ ЛЕЧЕНИЕ», ОГРН 1187746154694',
-  license: '[номер и дата лицензии — от клиента]',
-  logoNote: '[логотип — от клиента]',
+  legalEntity: 'ООО «ЯСНЫЙ ПРИЁМ» (вымышленная организация)',
+  license: '[номер и дата лицензии — для боевого сайта]',
+  logoNote: '[логотип — для боевого сайта]',
   founded: '[год основания — уточнить]',
   warning: 'Имеются противопоказания. Необходима консультация специалиста',
   weekendDiscount: 10,
-  conceptNote: tp(
-    'Концепт сайта, подготовлен для «Правильное лечение» студией Kovagor. Не является официальным сайтом компании',
-  ),
+  conceptNote: tp('Демо-проект для портфолио. Клиника, врачи, отзывы, адрес и контакты вымышлены'),
   misNote: '[интеграция с МИС — после запуска]',
-  officialSite: 'https://pravlech.ru',
-  policyUrl: 'https://pravlech.ru/politika-konfidenczialnosti/',
-  pdnRulesUrl: 'https://pravlech.ru/pravila-obrabotki-personalnyh-dannyh/',
   hours,
 } as const;
 
-/** Как добраться — с официальной страницы «Контакты». */
+/** Как добраться: вымышленные станции для демо. */
 export const howToGet = [
-  { id: 'kuskovo', short: 'МЦД Кусково', from: 'МЦД-4 Кусково', how: '8 минут пешком' },
-  { id: 'novogireevo-mcd', short: 'МЦД Новогиреево', from: 'МЦД-4 Новогиреево', how: 'автобус 842 или 254 до остановки «Новотетёрки», дальше 300 м; пешком около 17 минут' },
-  { id: 'perovo', short: 'м. Перово', from: 'м. Перово', how: 'последний вагон из центра, выход 4; автобус 842, 314, 617, 787, 7, 620 или Т53 до «Новотетёрки»; пешком около 21 минуты' },
-  { id: 'novogireevo', short: 'м. Новогиреево', from: 'м. Новогиреево', how: 'первый вагон из центра, выход 2; автобус 617; пешком около 23 минут' },
-  { id: 'vykhino', short: 'м. Выхино', from: 'м. Выхино', how: 'последний вагон из центра, выход 4; автобус 620' },
+  { id: 'central', short: 'Метро «Центральная»', from: 'метро «Центральная»', how: 'выход 2, затем 7 минут пешком (демо-данные)' },
+  { id: 'park', short: 'Метро «Парковая»', from: 'метро «Парковая»', how: 'автобус 12 до остановки «Примерная», затем 200 м (демо-данные)' },
+  { id: 'north', short: 'Станция «Северная»', from: 'станция «Северная»', how: 'выход к городу, затем 10 минут пешком (демо-данные)' },
 ] as const;
 
 export const nav = [

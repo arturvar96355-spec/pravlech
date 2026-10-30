@@ -33,15 +33,12 @@ export function Footer() {
             <Link href="/reviews/" className="link-u w-fit py-1.5">Отзывы в цифрах</Link>
             <Link href="/memo/" className="link-u w-fit py-1.5">Памятка пациента</Link>
             <Link href="/privacy/" className="link-u w-fit py-1.5">Политика обработки данных</Link>
-            <Link href="/upgrade/" className="link-u w-fit py-1.5 text-white/70">Что изменится на сайте</Link>
           </nav>
           <div className="flex flex-col gap-1">
             {site.phones.map((p) => (
               <a key={p.href} href={p.href} className="link-u w-fit py-1.5 font-heading text-lg font-medium">{p.display}</a>
             ))}
             <a href={`mailto:${site.email}`} className="link-u w-fit py-1.5">{site.email}</a>
-            <a href={site.messenger.chatUrl} target="_blank" rel="noopener noreferrer" className="link-u w-fit py-1.5">Telegram</a>
-            <a href={site.social.vk} target="_blank" rel="noopener noreferrer" className="link-u w-fit py-1.5">ВКонтакте</a>
           </div>
         </div>
 

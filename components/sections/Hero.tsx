@@ -43,12 +43,12 @@ export function Hero() {
     <section aria-labelledby="hero-title" className="relative overflow-hidden pb-16 pt-10 sm:pt-14 lg:pb-24 lg:pt-20">
       <div className="container-x grid items-start gap-x-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
         <div className="relative z-10 lg:col-start-1 lg:row-start-1">
-          <p className="eyebrow mb-5">Медицинский центр · Перово</p>
+          <p className="eyebrow mb-5">Медицинский центр · демо</p>
           <h1 id="hero-title" className="text-[clamp(2.5rem,7.2vw,4.4rem)] leading-[1.04]">
             <SplitLines lines={['Врачи, которые', 'объясняют']} markLast />
           </h1>
           <p className="mt-6 max-w-xl text-[1.15rem] text-mute sm:text-xl">
-            {typograph('Многопрофильный медицинский центр в Перово. Без лишних анализов и очередей')}
+            {typograph('Многопрофильный медицинский центр. Без лишних анализов и очередей')}
           </p>
 
         </div>
@@ -74,7 +74,7 @@ export function Hero() {
             </span>
             <span className="text-[1.02rem] leading-snug">
               <b className="font-heading font-semibold"><CountUp to={site.rating.marks} />&nbsp;оценок</b>
-              <br />на Яндекс Картах
+              <br />(демо-данные)
             </span>
           </motion.div>
 
@@ -132,7 +132,7 @@ export function Hero() {
               {quoteFor(d.slug) && (
                 <div className="pointer-events-none absolute inset-x-3 top-full z-20 mt-1 translate-y-1 rounded-2xl bg-white p-3 text-[0.9rem] leading-snug opacity-0 shadow-lift transition-[opacity,transform] duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
                   <i>«{quoteFor(d.slug)!.text}»</i>
-                  <span className="mt-1 block text-[0.78rem] text-mute">Яндекс Карты · {quoteFor(d.slug)!.author}</span>
+                  <span className="mt-1 block text-[0.78rem] text-mute">Пример отзыва · {quoteFor(d.slug)!.author}</span>
                 </div>
               )}
             </motion.div>

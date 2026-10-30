@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { DoctorsGrid } from '@/components/widgets/DoctorsGrid';
 import { PageHead } from '@/components/ui/PageHead';
 
-export const metadata: Metadata = { title: 'Врачи — Правильное лечение' };
+export const metadata: Metadata = { title: 'Врачи — Ясный приём' };
 
 export default function DoctorsPage() {
   return (

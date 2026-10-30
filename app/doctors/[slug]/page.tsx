@@ -8,7 +8,7 @@ import { PageHead } from '@/components/ui/PageHead';
 import { Stars } from '@/components/ui/Stars';
 import { T } from '@/components/ui/Text';
 import { DoctorBookButton } from '@/components/widgets/DoctorBookButton';
-import { doctors, getDoctor, officialDoctorUrl } from '@/content/doctors';
+import { doctors, getDoctor } from '@/content/doctors';
 import { ph } from '@/content/placeholders';
 import { reviewSource, reviewsFor } from '@/content/reviews';
 import { getService } from '@/content/services';
@@ -92,7 +92,7 @@ export default async function DoctorPage({ params }: { params: Promise<{ slug: s
                 <DoctorBookButton slug={d.slug} />
                 <Link href="/memo/" className="link-u text-sage">Памятка: что спросить у врача</Link>
               </div>
-              <p className="mt-3 text-[0.88rem] text-mute">Данные о враче — с сайта клиники на 20.10.2026.</p>
+              <p className="mt-3 text-[0.88rem] text-mute">Вымышленный врач: данные для демо.</p>
             </div>
 
             <Block title={d.methods ? 'С чем обращаются' : 'Чем занимается'}>
@@ -125,14 +125,6 @@ export default async function DoctorPage({ params }: { params: Promise<{ slug: s
                 <List items={sec.items} />
               </Block>
             ))}
-
-            {d.photo && (
-              <p>
-                <a href={officialDoctorUrl(d.slug)} target="_blank" rel="noopener noreferrer" className="link-u inline-flex items-center gap-2 text-sage">
-                  Сертификаты и дипломы — на сайте клиники <ExternalLink size={16} aria-hidden />
-                </a>
-              </p>
-            )}
 
             <Block title="Что пишут пациенты">
               <div className="space-y-4">

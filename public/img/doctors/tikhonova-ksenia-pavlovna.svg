@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Аватар врача (иллюстрация)">
+<rect width="240" height="240" fill="#E3EDE8"/>
+
+<path d="M30 240c4-52 40-72 90-72s86 20 90 72z" fill="#FFFFFF" stroke="#C9D8D0" stroke-width="3"/>
+<path d="M98 170l22 36 22-36" fill="none" stroke="#2F7A63" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M104 160h32v20c-4 8-28 8-32 0z" fill="#E3BE9C"/>
+<ellipse cx="120" cy="118" rx="38" ry="46" fill="#E3BE9C"/>
+<circle cx="120" cy="44" r="20" fill="#5A3A26"/><path d="M72 104c0-32 20-52 48-52s48 20 48 52c-14-18-30-26-48-26s-34 8-48 26z" fill="#5A3A26"/>
+
+<circle cx="106" cy="120" r="3.2" fill="#2B3532"/><circle cx="134" cy="120" r="3.2" fill="#2B3532"/>
+<path d="M108 138c8 7 16 7 24 0" fill="none" stroke="#9A5B4A" stroke-width="3.5" stroke-linecap="round"/>
+
+<path d="M70 190c-6 14-4 28 10 34M170 190c6 14 4 28-10 34" fill="none" stroke="#2F7A63" stroke-width="4" stroke-linecap="round"/>
+<circle cx="62" cy="226" r="7" fill="none" stroke="#2F7A63" stroke-width="4"/>
+</svg>

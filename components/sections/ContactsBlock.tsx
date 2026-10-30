@@ -1,6 +1,5 @@
-import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
+import { Mail, MapPin, Phone } from 'lucide-react';
 import { site } from '@/content/site';
-import { ButtonLink } from '../ui/Button';
 import { MapScheme } from '../ui/MapScheme';
 import { T } from '../ui/Text';
 import { HoursTable } from '../widgets/HoursTable';
@@ -18,10 +17,6 @@ export function ContactsBlock({ level = 2 }: { level?: 2 | 3 }) {
             <MapPin className="mt-1 shrink-0 text-sage" aria-hidden />
             <span>{site.address.zip}, {site.address.street}<br /><span className="text-mute">{site.address.district}</span></span>
           </p>
-          <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href={site.address.mapsUrl}>Открыть в Яндекс Картах</ButtonLink>
-            <ButtonLink variant="secondary" href={site.messenger.chatUrl}><MessageCircle size={20} /> Написать в Telegram</ButtonLink>
-          </div>
           <div className="mt-6 space-y-1">
             {site.phones.map((p) => (
               <a key={p.href} href={p.href} className="flex min-h-12 items-center gap-3 font-heading text-xl font-medium">

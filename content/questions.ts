@@ -17,4 +17,4 @@ export type QuestionId = (typeof doctorQuestions)[number]['id'];
 export const questionsIntro = 'Отметьте, о чём хотите спросить. Врач объяснит, а Вы ничего не забудете.';
 
 /** Хранится на устройстве, чтобы перенести выбор на страницу памятки. */
-export const MEMO_KEY = 'pravlech-memo';
+export const MEMO_KEY = 'yasny-memo';

@@ -8,7 +8,7 @@ import { PricesSection } from '@/components/sections/PricesSection';
 import { ServiceBookButton } from '@/components/widgets/ServiceBookButton';
 import { services } from '@/content/services';
 
-export const metadata: Metadata = { title: 'Направления и цены — Правильное лечение' };
+export const metadata: Metadata = { title: 'Направления и цены — Ясный приём' };
 
 export default function ServicesPage() {
   return (

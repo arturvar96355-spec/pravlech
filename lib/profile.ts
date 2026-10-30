@@ -11,7 +11,7 @@ export type Profile = {
   lastService?: string;
 };
 
-export const PROFILE_KEY = 'pravlech-profile';
+export const PROFILE_KEY = 'yasny-profile';
 
 export function loadProfile(): Profile | null {
   try {

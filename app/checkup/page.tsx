@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { PageHead } from '@/components/ui/PageHead';
 import { CheckupBuilder } from '@/components/widgets/CheckupBuilder';
 
-export const metadata: Metadata = { title: 'Конструктор чек-апа — Правильное лечение' };
+export const metadata: Metadata = { title: 'Конструктор чек-апа — Ясный приём' };
 
 export default function CheckupPage() {
   return (

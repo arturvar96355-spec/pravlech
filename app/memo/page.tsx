@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { MemoSheet } from '@/components/widgets/MemoSheet';
 import { PageHead } from '@/components/ui/PageHead';
 
-export const metadata: Metadata = { title: 'Памятка пациента — Правильное лечение' };
+export const metadata: Metadata = { title: 'Памятка пациента — Ясный приём' };
 
 export default function MemoPage() {
   return (

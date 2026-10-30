@@ -24,7 +24,7 @@ export function MapScheme() {
         <g stroke="#E4DFD4" strokeWidth="2" strokeDasharray="10 12" fill="none">
           <path d="M0 190H600" />
         </g>
-        <text x="40" y="186" fontSize="15" fill="#5D6B67" fontFamily="sans-serif">Перовская ул.</text>
+        <text x="40" y="186" fontSize="15" fill="#5D6B67" fontFamily="sans-serif">ул. Примерная</text>
         <g transform="translate(300 150)">
           <path d="M0 40c-22-24-34-38-34-56a34 34 0 0 1 68 0c0 18-12 32-34 56z" fill="#2F6F5E" />
           <circle cx="0" cy="-16" r="12" fill="#FBF8F3" />

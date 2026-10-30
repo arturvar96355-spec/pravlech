@@ -1,4 +1,4 @@
-import { doctors, officialDoctorUrl } from '@/content/doctors';
+import { doctors } from '@/content/doctors';
 import { hours, site } from '@/content/site';
 
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -12,17 +12,16 @@ export function JsonLd() {
       {
         '@type': 'MedicalClinic',
         name: site.name,
-        legalName: 'ООО «ПРАВИЛЬНОЕ ЛЕЧЕНИЕ»',
+        legalName: 'ООО «ЯСНЫЙ ПРИЁМ»',
         telephone: site.phones.map((p) => p.display),
         email: site.email,
         address: {
           '@type': 'PostalAddress',
           postalCode: site.address.zip,
-          addressLocality: 'Москва',
-          streetAddress: 'ул. Перовская, д. 66, к. 3',
+          addressLocality: 'Город N',
+          streetAddress: site.address.street,
           addressCountry: 'RU',
         },
-        geo: { '@type': 'GeoCoordinates', latitude: site.address.coords[0], longitude: site.address.coords[1] },
         openingHoursSpecification: hours.map((h) => ({
           '@type': 'OpeningHoursSpecification',
           dayOfWeek: DAYS[h.day],
@@ -30,7 +29,6 @@ export function JsonLd() {
           closes: `${pad(h.close)}:00`,
         })),
         aggregateRating: { '@type': 'AggregateRating', ratingValue: site.rating.value, ratingCount: site.rating.marks, bestRating: 5 },
-        sameAs: [site.social.vk, site.messenger.chatUrl],
       },
       ...doctors
         .filter((d) => d.specialtyId !== 'procedure')
@@ -38,7 +36,6 @@ export function JsonLd() {
           '@type': 'Physician',
           name: d.name,
           medicalSpecialty: d.specialty,
-          url: officialDoctorUrl(d.slug),
           worksFor: { '@type': 'MedicalClinic', name: site.name },
         })),
     ],

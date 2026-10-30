@@ -4,7 +4,7 @@ import { Contrast, Eye, Minus, Plus, RotateCcw } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 
-const KEY = 'pravlech-a11y';
+const KEY = 'yasny-a11y';
 type Prefs = { fs: 0 | 1 | 2; hc: boolean };
 const DEFAULT: Prefs = { fs: 0, hc: false };
 

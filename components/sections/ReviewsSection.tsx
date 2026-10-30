@@ -32,10 +32,9 @@ export function ReviewsSection() {
             <p className="font-heading text-7xl font-semibold leading-none text-sage"><CountUp to={site.rating.value} decimals={1} /></p>
             <Stars size={26} className="mt-3" />
             <p className="mt-3 text-lg">
-              {site.rating.marks}&nbsp;оценок, {site.rating.reviews}&nbsp;отзывов<br />на Яндекс Картах
+              {site.rating.marks}&nbsp;оценок, {site.rating.reviews}&nbsp;отзывов<br />(демо-данные)
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <ButtonLink variant="secondary" href={site.address.reviewsUrl}>Читать на Яндекс Картах</ButtonLink>
               <ButtonLink variant="secondary" href="/reviews/">Отзывы в цифрах</ButtonLink>
             </div>
           </div>

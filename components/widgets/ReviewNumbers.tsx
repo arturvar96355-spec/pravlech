@@ -106,7 +106,7 @@ export function ReviewNumbers() {
                   ))}
                 </ul>
               ) : (
-                <p className="mt-3 text-mute"><T>[цитата из отзыва на Яндекс Картах — подобрать]</T></p>
+                <p className="mt-3 text-mute"><T>[пример отзыва — добавить]</T></p>
               )}
               {doctor && (
                 <p className="mt-4">

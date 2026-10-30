@@ -44,7 +44,7 @@ export function DoctorCard({ doctor, index = 0 }: { doctor: Doctor; index?: numb
         </p>
         <blockquote className="col-start-1 row-start-1 text-center text-[0.95rem] italic text-ink opacity-0 transition-opacity duration-300 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-focus-within:opacity-100">
           <T>{q ? `«${q.text}»` : doctor.quote}</T>
-          {q && <span className="mt-1 block text-[0.8rem] not-italic text-mute">Отзыв на Яндекс Картах · {q.author}</span>}
+          {q && <span className="mt-1 block text-[0.8rem] not-italic text-mute">Пример отзыва · {q.author}</span>}
         </blockquote>
       </div>
 

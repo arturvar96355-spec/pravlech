@@ -30,7 +30,7 @@ export type IcsInput = {
   dateIso: string;
   /** ЧЧ:ММ по Москве */
   time: string;
-  /** «к кардиологу Аргишти Гагиковичу Варданяну» */
+  /** «к кардиологу Игорю Сергеевичу Лаврову» */
   who: string;
   uid?: string;
 };
@@ -52,7 +52,7 @@ export function buildIcs({ dateIso, time, who, uid }: IcsInput): string {
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Правильное лечение//Концепт сайта//RU',
+    'PRODID:-//Ясный приём//Демо-проект//RU',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     'BEGIN:VTIMEZONE',
@@ -65,7 +65,7 @@ export function buildIcs({ dateIso, time, who, uid }: IcsInput): string {
     'END:STANDARD',
     'END:VTIMEZONE',
     'BEGIN:VEVENT',
-    `UID:${uid ?? `${start}-${Math.random().toString(36).slice(2, 10)}`}@pravlech`,
+    `UID:${uid ?? `${start}-${Math.random().toString(36).slice(2, 10)}`}@yasny-demo`,
     `DTSTAMP:${stamp}Z`,
     `DTSTART;TZID=Europe/Moscow:${start}`,
     `DTEND;TZID=Europe/Moscow:${end}`,
@@ -74,7 +74,7 @@ export function buildIcs({ dateIso, time, who, uid }: IcsInput): string {
     `DESCRIPTION:${esc(desc)}`,
     'BEGIN:VALARM',
     'ACTION:DISPLAY',
-    `DESCRIPTION:${esc('Завтра приём в клинике «Правильное лечение»')}`,
+    `DESCRIPTION:${esc('Завтра приём в клинике «Ясный приём» (демо)')}`,
     'TRIGGER:-P1D',
     'END:VALARM',
     'END:VEVENT',
@@ -100,7 +100,6 @@ export function buildShareText({ dayLabel, time, who }: { dayLabel: string; time
   return [
     `Запись ${who}: ${dayLabel}, ${time} (время ориентировочное, администратор подтвердит).`,
     `Адрес: ${site.address.zip}, ${site.address.street}.`,
-    `Карта: ${site.address.mapsUrl}`,
     `Телефон клиники: ${site.phones[0].display}.`,
   ].join('\n');
 }

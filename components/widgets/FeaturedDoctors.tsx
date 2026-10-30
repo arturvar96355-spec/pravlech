@@ -12,7 +12,7 @@ import { T } from '../ui/Text';
 import { Reveal } from '../motion/Reveal';
 import { useBooking } from './BookingProvider';
 
-export const FEATURED = ['vardanyan-argishti-gagikovich', 'salkaev-marat-ravilovich', 'ermoshkina-natalya-yurevna'] as const;
+export const FEATURED = ['lavrov-igor-sergeevich', 'gromov-andrey-nikolaevich', 'morozova-elena-viktorovna'] as const;
 
 /** Три врача, которых чаще всего называют в отзывах: крупное фото и слова пациента рядом. */
 export function FeaturedDoctors() {
@@ -32,7 +32,7 @@ export function FeaturedDoctors() {
               <DoctorAvatar doctor={d} index={i} size="lg" className="relative !h-48 !w-48" />
             </div>
             <div>
-              {n != null && <p className="font-heading text-5xl font-semibold leading-none text-sage">{n}<span className="ml-2 text-base font-normal text-mute">из 150 просмотренных отзывов называют</span></p>}
+              {n != null && <p className="font-heading text-5xl font-semibold leading-none text-sage">{n}<span className="ml-2 text-base font-normal text-mute">из 150 отзывов (демо-данные) называют</span></p>}
               <h3 className="mt-3 text-[1.6rem]">
                 <Link href={`/doctors/${slug}/`} className="link-u"><T>{d.name}</T></Link>
               </h3>

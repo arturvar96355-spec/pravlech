@@ -8,7 +8,7 @@ export function PriceList({ group }: { group: PriceGroup }) {
   return (
     <div className="print-area">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-3 print:hidden">
-        <p className="text-[0.95rem] text-mute">{group.items.length} позиций · цены клиники на 20.10.2026</p>
+        <p className="text-[0.95rem] text-mute">{group.items.length} позиций · примерные цены</p>
         <PrintButton />
       </div>
       <h3 className="hidden text-xl print:block">{group.title}</h3>
